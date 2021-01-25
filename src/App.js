@@ -12,7 +12,13 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
+    boxShadow: "1px 1px 6px 0px",
+    borderRadius: "10px"
   },
+  header : {
+    borderRadius: "10px 10px 0px 0px",
+
+  }
 }));
 
 export default function App() {
@@ -27,8 +33,11 @@ export default function App() {
     <div className="App">
       <div className="tab-rapper">
         <div className={classes.root}>
-          <AppBar position="static">
+          <AppBar
+            className = {classes.header}
+            position="static">
             <Tabs
+
               variant="fullWidth"
               value={value}
               onChange={handleChange}
