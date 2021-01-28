@@ -5,7 +5,8 @@ import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles((theme) => ({
     table: {
-        minWidth: 500,
+        minWidth: 400,
+        maxWidth:"100vw"
     },
 }));
 
