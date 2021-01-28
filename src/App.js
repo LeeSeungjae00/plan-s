@@ -19,20 +19,14 @@ const useStyles = makeStyles((theme) => ({
   header: {
     borderRadius: "10px 10px 0px 0px",
 
-  },
-  radiolist: {
-    justifyContent: "space-evenly",
-  },
-  table: {
-    minWidth: 300,
-  },
+  }
 }));
-
 
 
 export default function App() {
   const classes = useStyles();
   const [tabValue, setTapValue] = React.useState(0);
+  const [tableVisible,setTableVisible] = React.useState(false);
 
   const result = {};
 
@@ -42,7 +36,12 @@ export default function App() {
   };
 
   const handleSend = () => {
+    
     console.log(result);
+    if(tableVisible === false) setTableVisible(true)
+    else{
+
+    }
   }
 
 
@@ -180,33 +179,8 @@ export default function App() {
           </TabPanel>
         </div>
       </div>
-      <ResultTable result = {result}></ResultTable>
-      {/* <div className="tab-rapper">
-      <TableContainer component = {Paper}>
-      <Table className={classes.table} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Value</TableCell>
-            <TableCell align="right">3yr</TableCell>
-            <TableCell align="right">5yr</TableCell>
-            <TableCell align="right">8yr</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.val1}</TableCell>
-              <TableCell align="right">{row.val2}</TableCell>
-              <TableCell align="right">{row.val3}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-      </div> */}
+      {tableVisible ? <ResultTable result = {result}></ResultTable> : <></>}
+      
     </div>
   );
 }
