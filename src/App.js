@@ -2,12 +2,12 @@ import React from 'react';
 import './App.css'
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Tabs, Grow } from '@material-ui/core';
+import { ArrowRight } from '@material-ui/icons';
 import { TabPanel, a11yProps, LinkTab } from './Content/tapModule';
 import InputComponent from './Content/InputComponent';
 import RadioComponent from './Content/RadioComponent';
 import ResultTable from './Content/ResultTable';
-import { ArrowRight } from '@material-ui/icons';
-import madeAPIData from './Module/madeAPIData';
+import madeAPIData, {baselibeRowNames,DNA_suppressionRowNames} from './Module/madeAPIData';
 import axios from 'axios';
 
 
@@ -51,6 +51,18 @@ export default function App() {
       const req = await axios.post("/data", restAPIData);
 
       //rows 설정 
+      let rowsNamePicker;
+
+      if(tabValue === 0) rowsNamePicker = baselibeRowNames;
+      else if(tabValue === 0) rowsNamePicker = DNA_suppressionRowNames;
+
+      rows.splice(0);
+
+      for(let i =0; i < rowsNamePicker.length ; i ++){
+        rows.push(createData(rowsNamePicker[i],...req.data[`group_${i + 1}`]));
+      }
+
+      setRows(rows);
 
       if (tableVisible === false) setTableVisible(true);
     }
@@ -67,20 +79,16 @@ export default function App() {
         group_4 : ["0.0%", "0.0%", "0.0%"],
         group_5 : ["0.0%", "0.0%", "0.0%"],
       }
+      let rowsNamePicker;
+
+      if(tabValue === 0) rowsNamePicker = baselibeRowNames;
+      else if(tabValue === 0) rowsNamePicker = DNA_suppressionRowNames;
+
       rows.splice(0);
 
-      if(tabValue === 0){
-        rows.push(createData("0~0.025 (Group 1)",...fakeReq.group_1));
-        rows.push(createData("0.025~0.3 (Group 2)",...fakeReq.group_2));
-        rows.push(createData("0.3~1.0 (Group 3)",...fakeReq.group_3));
-      }else if(tabValue === 1){
-        rows.push(createData("0~0.025 (Group 1)",...fakeReq2?.group_1));
-        rows.push(createData("0.025~0.3 (Group 2)",...fakeReq2?.group_2));
-        rows.push(createData("0.3~1.0 (Group 3)",...fakeReq2?.group_3));
-        rows.push(createData("0.3~1.0 (Group 4)",...fakeReq2?.group_4));
-        rows.push(createData("0.3~1.0 (Group 5)",...fakeReq2?.group_5));
+      for(let i =0; i < rowsNamePicker.length ; i ++){
+        rows.push(createData(rowsNamePicker[i],...fakeReq[`group_${i + 1}`]));
       }
-      
       
       setRows(rows);
       if (tableVisible === false) setTableVisible(true);

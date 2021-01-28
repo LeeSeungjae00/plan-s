@@ -22,6 +22,19 @@ const DNA_suppression = [
     "presence_of_HBeAg_dna"
 ]
 
+export const baselibeRowNames = [
+    "0~0.025 (Group 1)",
+    "0.025~0.3 (Group 2)",
+    "0.3~1.0 (Group 3)"
+  ]
+export const DNA_suppressionRowNames = [
+    "0~0.03 (Group 1)",
+    "0.03~0.1 (Group 2)",
+    "0.1~0.2 (Group 3)",
+    "0.2~0.3 (Group 4)",
+    "0.3~1.0 (Group 5)"
+  ]
+  
 
 const madeAPIData = (tabValue, result) => {
     let restAPIData = {}
