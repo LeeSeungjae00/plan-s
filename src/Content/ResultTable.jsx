@@ -5,7 +5,7 @@ import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles((theme) => ({
     table: {
-        minWidth: 300,
+        minWidth: 500,
     },
 }));
 
@@ -21,7 +21,7 @@ export default function ResultTable({result}) {
         createData("0.3~1.0 (Group 3)", "0.0%", "0.0%", "0.0%"),]
     )
     return (
-        <div className="tab-rapper">
+        <div className="result-rapper">
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="simple table">
                     <TableHead>

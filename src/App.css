@@ -12,7 +12,11 @@
 }
 
 .tab-rapper{
-  background-color:rgb(226, 226, 226);
+  width: fit-content;
+  height: fit-content;
+}
+
+.result_rapper{
   width: fit-content;
   height: fit-content;
 }

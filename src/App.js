@@ -1,12 +1,12 @@
 import React from 'react';
 import './App.css'
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
+import { AppBar, Tabs, Grow } from '@material-ui/core';
 import { TabPanel, a11yProps, LinkTab } from './Content/tapModule'
 import InputComponent from './Content/InputComponent'
 import RadioComponent from './Content/RadioComponent';
 import ResultTable from './Content/ResultTable'
+import { ArrowRight } from '@material-ui/icons';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -26,20 +26,21 @@ const useStyles = makeStyles((theme) => ({
 export default function App() {
   const classes = useStyles();
   const [tabValue, setTapValue] = React.useState(0);
-  const [tableVisible,setTableVisible] = React.useState(false);
+  const [tableVisible, setTableVisible] = React.useState(false);
 
   const result = {};
 
 
   const handleTabChange = (event, newValue) => {
+    setTableVisible(false);
     setTapValue(newValue);
   };
 
   const handleSend = () => {
-    
+
     console.log(result);
-    if(tableVisible === false) setTableVisible(true)
-    else{
+    if (tableVisible === false) setTableVisible(true)
+    else {
 
     }
   }
@@ -179,8 +180,17 @@ export default function App() {
           </TabPanel>
         </div>
       </div>
-      {tableVisible ? <ResultTable result = {result}></ResultTable> : <></>}
-      
+      { tableVisible ?
+      <>
+        <Grow timeout = {1000} in={tableVisible}>
+          <ArrowRight fontSize="large"></ArrowRight>
+        </Grow>
+        <Grow in={tableVisible}
+          style={{ transformOrigin: '0 0 0' }}
+          {...(tableVisible ? { timeout: 1500 } : {})}>
+          <div><ResultTable result={result}></ResultTable></div>
+        </Grow></> : null
+      }
     </div>
   );
 }
