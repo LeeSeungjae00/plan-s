@@ -1,14 +1,13 @@
-import React , {useRef}from 'react';
+import React, { useRef } from 'react';
 import './App.css'
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import { TabPanel, a11yProps, LinkTab } from './Content/tapModule'
-import {FormGroup,TableBody, TableContainer,TableRow,TableCell,Table,TableHead,InputAdornment, FormControl, Input, InputLabel, Radio , FormLabel , RadioGroup, FormControlLabel} from '@material-ui/core';
+import { FormGroup, TableBody, TableContainer, TableRow, TableCell, Table, TableHead, InputAdornment, FormControl, Input, InputLabel, Radio, FormLabel, RadioGroup, FormControlLabel } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import InputComponent from './Content/InputComponent'
 import RadioComponent from './Content/RadioComponent';
-
 
 
 const useStyles = makeStyles((theme) => ({
@@ -22,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "10px 10px 0px 0px",
 
   },
-  radiolist : {
+  radiolist: {
     justifyContent: "space-evenly",
   },
   table: {
@@ -30,26 +29,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function createData(name,val1, val2, val3) {
-  return {name, val1, val2, val3 };
+function createData(name, val1, val2, val3) {
+  return { name, val1, val2, val3 };
 }
-
-// const rows = [
-//   createData("0~0.025 (Group 1)","0.0%","0.0%","0.0%"),
-//   createData("0.025~0.3 (Group 2)","0.0%","0.0%","0.0%"),
-//   createData("0.3~1.0 (Group 3)","0.0%","0.0%","0.0%"),
-// ];
 
 export default function App() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [row, setRow] = React.useState([
-    createData("0~0.025 (Group 1)","0.0%","0.0%","0.0%"),
-    createData("0.025~0.3 (Group 2)","0.0%","0.0%","0.0%"),
-    createData("0.3~1.0 (Group 3)","0.0%","0.0%","0.0%"),]
+    createData("0~0.025 (Group 1)", "0.0%", "0.0%", "0.0%"),
+    createData("0.025~0.3 (Group 2)", "0.0%", "0.0%", "0.0%"),
+    createData("0.3~1.0 (Group 3)", "0.0%", "0.0%", "0.0%"),]
   )
-  const ageRef = useRef();
-  let sexValue = "";
+
+
+  const result = {};
 
 
   const handleChange = (event, newValue) => {
@@ -57,8 +51,7 @@ export default function App() {
   };
 
   const handleSend = () => {
-    console.log(ageRef.current.value);
-    console.log(sexValue);
+    console.log(result);
   }
 
 
@@ -80,190 +73,146 @@ export default function App() {
               <LinkTab label="Data from baseline and HBV DNA suppression (<2,000IU/ml)" href="/HBVDNAsuppression" {...a11yProps(1)} />
             </Tabs>
           </AppBar>
-          
-          <TabPanel onSend = {handleSend} value={value} index={0}
-            children_1 = {
+
+          <TabPanel onSend={handleSend} value={value} index={0}
+            children_1={
               <>
-              <InputComponent 
-                lable = "Age"
-                adornment = "Years"
-                refProp = {ageRef}
-              ></InputComponent>
-              {/* <FormControl component="fieldset">
-                <FormLabel component="legend">Sex</FormLabel>
-                <RadioGroup className = {classes.radiolist} row >
-                  <FormControlLabel
-                    value="male"
-                    control={<Radio color="primary" />}
-                    label="male"
-                  />
-                  <FormControlLabel
-                    value="female"
-                    control={<Radio color="primary" />}
-                    label="female"
-                  />
-                </RadioGroup> */}
+                <InputComponent
+                  type="number"
+                  min="0"
+                  lable="Age"
+                  adornment="Years"
+                  setInputVal={age => result.age = age}
+                ></InputComponent>
                 <RadioComponent
-                  title = "Age"
-                  lable1 = "male"
-                  lable2 = "female"
-                  setRadioVal = {(value) => {sexValue = value;}}
+                  title="Sex"
+                  lable1="male"
+                  lable2="female"
+                  setRadioVal={sex => result.sex = sex}
                 >
                 </RadioComponent>
-              <FormControl>
-                <InputLabel htmlFor="1_Platelet">Platelet, baseline</InputLabel>
-                <Input
-                  endAdornment={<InputAdornment position="end">x1000mm<sup className = "mutip">3</sup></InputAdornment>}
-                  id="1_Platelet">
-                </Input>
-              </FormControl>
-              <FormControl component="fieldset">
-                <FormLabel component="legend">Antivirals agent</FormLabel>
-                <RadioGroup className = {classes.radiolist} row>
-                  <FormControlLabel
-                    value="entecavir"
-                    control={<Radio color="primary" />}
-                    label="entecavir"
-                  />
-                  <FormControlLabel
-                    value="tenofovir"
-                    control={<Radio color="primary" />}
-                    label="tenofovir"
-                  />
-                </RadioGroup>
-              </FormControl>
-              <FormControl>
-                <InputLabel htmlFor="1_Albumin">Albumin, baseline</InputLabel>
-                <Input
-                  endAdornment={<InputAdornment position="end">g/dL</InputAdornment>}
-                  id="1_Albumin" >
-                </Input>
-              </FormControl>
-              <FormControl component="fieldset">
-                <FormLabel component="legend">Cirrhosis, baseline</FormLabel>
-                <RadioGroup className = {classes.radiolist} row aria-label="position" name="position">
-                  <FormControlLabel
-                    value="Cirrhosis_yes"
-                    control={<Radio color="primary" />}
-                    label="yes"
-                  />
-                  <FormControlLabel
-                    value="Cirrhosis_no"
-                    control={<Radio color="primary" />}
-                    label="no"
-                  />
-                </RadioGroup>
-              </FormControl>
-              <FormControl>
-                <InputLabel htmlFor="1_Total">Total bilirubin, baseline</InputLabel>
-                <Input
-                  endAdornment={<InputAdornment position="end">mg/dL</InputAdornment>}
-                  id="1_Total" >
-                </Input>
-              </FormControl>
-              <FormControl component="fieldset">
-                <FormLabel component="legend">Presence of HBeAg, baseline</FormLabel>
-                <RadioGroup className = {classes.radiolist} row aria-label="position" name="position">
-                  <FormControlLabel
-                    value="Presence_yes"
-                    control={<Radio color="primary" />}
-                    label="yes"
-                  />
-                  <FormControlLabel
-                    value="Presence_no"
-                    control={<Radio color="primary" />}
-                    label="no"
-                  />
-                </RadioGroup>
-              </FormControl>
-              <FormControl>
-                <InputLabel htmlFor="1_ALT">ALT, baseline</InputLabel>
-                <Input
-                  endAdornment={<InputAdornment position="end">U/L</InputAdornment>}
-                  id="1_ALT" >
-                </Input>
-              </FormControl>
-              <FormControl>
-                <InputLabel htmlFor="1_HBV">HBV DNA, baseline</InputLabel>
-                <Input
-                  endAdornment={<InputAdornment position="end">IU/mL</InputAdornment>}
-                  id="1_HBV" >
-                </Input>
-              </FormControl>
-            </>
+                <InputComponent
+                  type="number"
+                  lable="Platelet, baseline"
+                  adornment={<>x1000mm<sup className="mutip">3</sup></>}
+                  setInputVal={platelet => result.platelet = platelet}
+                ></InputComponent>
+                <RadioComponent
+                  title="Antivirals agent"
+                  lable1="entecavir"
+                  lable2="tenofovir"
+                  setRadioVal={antivirals => result.antivirals = antivirals}
+                >
+                </RadioComponent>
+                <InputComponent
+                  type="number"
+                  lable="Albumin, baseline"
+                  adornment="g/dL"
+                  setInputVal={albumin => result.albumin = albumin}
+                ></InputComponent>
+                <RadioComponent
+                  title="Cirrhosis, baseline"
+                  lable1="yes"
+                  lable2="no"
+                  setRadioVal={cirrhosis => result.cirrhosis = cirrhosis}
+                >
+                </RadioComponent>
+                <InputComponent
+                  type="number"
+                  lable="Total bilirubin, baseline"
+                  adornment="mg/dL"
+                  setInputVal={total_bilirubin => result.total_bilirubin = total_bilirubin}
+                ></InputComponent>
+                <RadioComponent
+                  title="Cirrhosis, baseline"
+                  lable1="yes"
+                  lable2="no"
+                  setRadioVal={cirrhosis => result.cirrhosis = cirrhosis}
+                >
+                </RadioComponent>
+                <InputComponent
+                  type="number"
+                  lable="ALT, baseline"
+                  adornment="U/L"
+                  setInputVal={ALT => result.ALT = ALT}
+                ></InputComponent>
+                <InputComponent
+                  type="number"
+                  lable="HBV DNA, baseline"
+                  adornment="IU/mL"
+                  setInputVal={HBV_DNA => result.HBV_DNA = HBV_DNA}
+                ></InputComponent>
+              </>
             }
-            children_2 = {
+            children_2={
               <>
-              <FormControl>
-                <InputLabel htmlFor="Cirrhosis">Platelet, DNA suppression</InputLabel>
-                <Input
-                  endAdornment={<InputAdornment position="end">x1000mm<sup className = "mutip">3</sup></InputAdornment>}
-                  id="Platelet">
-                </Input>
-              </FormControl>
-              <FormControl component="fieldset">
-                <FormLabel component="legend">Cirrhosis, DNA suppression</FormLabel>
-                <RadioGroup className = {classes.radiolist} row aria-label="position" name="position">
-                  <FormControlLabel
-                    value="Cirrhosis"
-                    control={<Radio color="primary" />}
-                    label="yes"
-                  />
-                  <FormControlLabel
-                    value="Cirrhosis"
-                    control={<Radio color="primary" />}
-                    label="no"
-                  />
-                </RadioGroup>
-              </FormControl>
-              
-              <FormControl>
-                <InputLabel htmlFor="DNA_Albumin">albumin, DNA suppression</InputLabel>
-                <Input
-                  endAdornment={<InputAdornment position="end">g/dL</InputAdornment>}
-                  id="DNA_Albumin" >
-                </Input>
-              </FormControl>
-              <FormControl>
-                <InputLabel htmlFor="DNA_Total">Total bilirubin, DNA suppression</InputLabel>
-                <Input
-                  endAdornment={<InputAdornment position="end">mg/dL</InputAdornment>}
-                  id="DNA_Total" >
-                </Input>
-              </FormControl>
-              <FormControl>
-                <InputLabel htmlFor="DNA_ALT">ALT, DNA suppression</InputLabel>
-                <Input
-                  endAdornment={<InputAdornment position="end">U/L</InputAdornment>}
-                  id="DNA_ALT" >
-                </Input>
-              </FormControl>
-              <FormControl>
-                <InputLabel htmlFor="DNA_HBV">HBV DNA, DNA suppression</InputLabel>
-                <Input
-                  endAdornment={<InputAdornment position="end">IU/mL</InputAdornment>}
-                  id="DNA_HBV" >
-                </Input>
-              </FormControl>
-              <FormControl component="fieldset">
-                <FormLabel component="legend">Presence of HBeAg, DNA suppression</FormLabel>
-                <RadioGroup className = {classes.radiolist} row aria-label="position" name="position">
-                  <FormControlLabel
-                    value="HBeAg_yes"
-                    control={<Radio color="primary" />}
-                    label="yes"
-                  />
-                  <FormControlLabel
-                    value="HBeAg_no"
-                    control={<Radio color="primary" />}
-                    label="no"
-                  />
-                </RadioGroup>
-              </FormControl>
-            </>
+                {/* <FormControl>
+                  <InputLabel htmlFor="Cirrhosis">Platelet, DNA suppression</InputLabel>
+                  <Input
+                    endAdornment={<InputAdornment position="end">x1000mm<sup className="mutip">3</sup></InputAdornment>}
+                    id="Platelet">
+                  </Input>
+                </FormControl> */}
+                <InputComponent
+                  type="number"
+                  lable="Platelet, DNA suppression"
+                  adornment={<>x1000mm<sup className="mutip">3</sup></>}
+                  setInputVal={platelet_dna => result.platelet_dna = platelet_dna}
+                ></InputComponent>
+                <RadioComponent
+                  title="Cirrhosis, DNA suppression"
+                  lable1="yes"
+                  lable2="no"
+                  setRadioVal={cirrhosis_dna => result.cirrhosis_dna = cirrhosis_dna}
+                >
+                </RadioComponent>
+                <FormControl>
+                  <InputLabel htmlFor="DNA_Albumin">albumin, DNA suppression</InputLabel>
+                  <Input
+                    endAdornment={<InputAdornment position="end">g/dL</InputAdornment>}
+                    id="DNA_Albumin" >
+                  </Input>
+                </FormControl>
+                <FormControl>
+                  <InputLabel htmlFor="DNA_Total">Total bilirubin, DNA suppression</InputLabel>
+                  <Input
+                    endAdornment={<InputAdornment position="end">mg/dL</InputAdornment>}
+                    id="DNA_Total" >
+                  </Input>
+                </FormControl>
+                <FormControl>
+                  <InputLabel htmlFor="DNA_ALT">ALT, DNA suppression</InputLabel>
+                  <Input
+                    endAdornment={<InputAdornment position="end">U/L</InputAdornment>}
+                    id="DNA_ALT" >
+                  </Input>
+                </FormControl>
+                <FormControl>
+                  <InputLabel htmlFor="DNA_HBV">HBV DNA, DNA suppression</InputLabel>
+                  <Input
+                    endAdornment={<InputAdornment position="end">IU/mL</InputAdornment>}
+                    id="DNA_HBV" >
+                  </Input>
+                </FormControl>
+                <FormControl component="fieldset">
+                  <FormLabel component="legend">Presence of HBeAg, DNA suppression</FormLabel>
+                  <RadioGroup className={classes.radiolist} row aria-label="position" name="position">
+                    <FormControlLabel
+                      value="HBeAg_yes"
+                      control={<Radio color="primary" />}
+                      label="yes"
+                    />
+                    <FormControlLabel
+                      value="HBeAg_no"
+                      control={<Radio color="primary" />}
+                      label="no"
+                    />
+                  </RadioGroup>
+                </FormControl>
+              </>
             }
           >
-            
+
           </TabPanel>
         </div>
       </div>
