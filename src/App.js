@@ -1,13 +1,12 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import './App.css'
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import { TabPanel, a11yProps, LinkTab } from './Content/tapModule'
-import { FormGroup, TableBody, TableContainer, TableRow, TableCell, Table, TableHead, InputAdornment, FormControl, Input, InputLabel, Radio, FormLabel, RadioGroup, FormControlLabel } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
 import InputComponent from './Content/InputComponent'
 import RadioComponent from './Content/RadioComponent';
+import ResultTable from './Content/ResultTable'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -29,25 +28,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function createData(name, val1, val2, val3) {
-  return { name, val1, val2, val3 };
-}
+
 
 export default function App() {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
-  const [row, setRow] = React.useState([
-    createData("0~0.025 (Group 1)", "0.0%", "0.0%", "0.0%"),
-    createData("0.025~0.3 (Group 2)", "0.0%", "0.0%", "0.0%"),
-    createData("0.3~1.0 (Group 3)", "0.0%", "0.0%", "0.0%"),]
-  )
-
+  const [tabValue, setTapValue] = React.useState(0);
 
   const result = {};
 
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const handleTabChange = (event, newValue) => {
+    setTapValue(newValue);
   };
 
   const handleSend = () => {
@@ -63,10 +54,9 @@ export default function App() {
             className={classes.header}
             position="static">
             <Tabs
-
               variant="fullWidth"
-              value={value}
-              onChange={handleChange}
+              value={tabValue}
+              onChange={handleTabChange}
               aria-label="nav tabs example"
             >
               <LinkTab label="Data from baseline (antivirals initiation)" href="/antiviralsinitiation" {...a11yProps(0)} />
@@ -74,7 +64,7 @@ export default function App() {
             </Tabs>
           </AppBar>
 
-          <TabPanel onSend={handleSend} value={value} index={0}
+          <TabPanel onSend={handleSend} value={tabValue} index={0}
             children_1={
               <>
                 <InputComponent
@@ -89,8 +79,7 @@ export default function App() {
                   lable1="male"
                   lable2="female"
                   setRadioVal={sex => result.sex = sex}
-                >
-                </RadioComponent>
+                ></RadioComponent>
                 <InputComponent
                   type="number"
                   lable="Platelet, baseline"
@@ -102,8 +91,7 @@ export default function App() {
                   lable1="entecavir"
                   lable2="tenofovir"
                   setRadioVal={antivirals => result.antivirals = antivirals}
-                >
-                </RadioComponent>
+                ></RadioComponent>
                 <InputComponent
                   type="number"
                   lable="Albumin, baseline"
@@ -115,8 +103,7 @@ export default function App() {
                   lable1="yes"
                   lable2="no"
                   setRadioVal={cirrhosis => result.cirrhosis = cirrhosis}
-                >
-                </RadioComponent>
+                ></RadioComponent>
                 <InputComponent
                   type="number"
                   lable="Total bilirubin, baseline"
@@ -124,12 +111,11 @@ export default function App() {
                   setInputVal={total_bilirubin => result.total_bilirubin = total_bilirubin}
                 ></InputComponent>
                 <RadioComponent
-                  title="Cirrhosis, baseline"
+                  title="Presence of HBeAg, baseline"
                   lable1="yes"
                   lable2="no"
-                  setRadioVal={cirrhosis => result.cirrhosis = cirrhosis}
-                >
-                </RadioComponent>
+                  setRadioVal={presence_of_HBeAg => result.presence_of_HBeAg = presence_of_HBeAg}
+                ></RadioComponent>
                 <InputComponent
                   type="number"
                   lable="ALT, baseline"
@@ -146,13 +132,6 @@ export default function App() {
             }
             children_2={
               <>
-                {/* <FormControl>
-                  <InputLabel htmlFor="Cirrhosis">Platelet, DNA suppression</InputLabel>
-                  <Input
-                    endAdornment={<InputAdornment position="end">x1000mm<sup className="mutip">3</sup></InputAdornment>}
-                    id="Platelet">
-                  </Input>
-                </FormControl> */}
                 <InputComponent
                   type="number"
                   lable="Platelet, DNA suppression"
@@ -164,58 +143,44 @@ export default function App() {
                   lable1="yes"
                   lable2="no"
                   setRadioVal={cirrhosis_dna => result.cirrhosis_dna = cirrhosis_dna}
-                >
-                </RadioComponent>
-                <FormControl>
-                  <InputLabel htmlFor="DNA_Albumin">albumin, DNA suppression</InputLabel>
-                  <Input
-                    endAdornment={<InputAdornment position="end">g/dL</InputAdornment>}
-                    id="DNA_Albumin" >
-                  </Input>
-                </FormControl>
-                <FormControl>
-                  <InputLabel htmlFor="DNA_Total">Total bilirubin, DNA suppression</InputLabel>
-                  <Input
-                    endAdornment={<InputAdornment position="end">mg/dL</InputAdornment>}
-                    id="DNA_Total" >
-                  </Input>
-                </FormControl>
-                <FormControl>
-                  <InputLabel htmlFor="DNA_ALT">ALT, DNA suppression</InputLabel>
-                  <Input
-                    endAdornment={<InputAdornment position="end">U/L</InputAdornment>}
-                    id="DNA_ALT" >
-                  </Input>
-                </FormControl>
-                <FormControl>
-                  <InputLabel htmlFor="DNA_HBV">HBV DNA, DNA suppression</InputLabel>
-                  <Input
-                    endAdornment={<InputAdornment position="end">IU/mL</InputAdornment>}
-                    id="DNA_HBV" >
-                  </Input>
-                </FormControl>
-                <FormControl component="fieldset">
-                  <FormLabel component="legend">Presence of HBeAg, DNA suppression</FormLabel>
-                  <RadioGroup className={classes.radiolist} row aria-label="position" name="position">
-                    <FormControlLabel
-                      value="HBeAg_yes"
-                      control={<Radio color="primary" />}
-                      label="yes"
-                    />
-                    <FormControlLabel
-                      value="HBeAg_no"
-                      control={<Radio color="primary" />}
-                      label="no"
-                    />
-                  </RadioGroup>
-                </FormControl>
+                ></RadioComponent>
+                <InputComponent
+                  type="number"
+                  lable="Albumin, DNA suppression"
+                  adornment="g/dL"
+                  setInputVal={albumin_dna => result.albumin_dna = albumin_dna}
+                ></InputComponent>
+                <InputComponent
+                  type="number"
+                  lable="Total bilirubin, DNA suppression"
+                  adornment="mg/dL"
+                  setInputVal={total_bilirubin_dna => result.total_bilirubin_dna = total_bilirubin_dna}
+                ></InputComponent>
+                <InputComponent
+                  type="number"
+                  lable="ALT, DNA suppression"
+                  adornment="U/L"
+                  setInputVal={ATL_dna => result.ATL_dna = ATL_dna}
+                ></InputComponent>
+                <InputComponent
+                  type="number"
+                  lable="HBV DNA, DNA suppression"
+                  adornment="IU/mL"
+                  setInputVal={HBV_dna_dna => result.HBV_dna_dna = HBV_dna_dna}
+                ></InputComponent>
+                <RadioComponent
+                  title="Presence of HBeAg, DNA suppression"
+                  lable1="yes"
+                  lable2="no"
+                  setRadioVal={presence_of_HBeAg_dna => result.presence_of_HBeAg_dna = presence_of_HBeAg_dna}
+                ></RadioComponent>
               </>
             }
           >
-
           </TabPanel>
         </div>
       </div>
+      <ResultTable result = {result}></ResultTable>
       {/* <div className="tab-rapper">
       <TableContainer component = {Paper}>
       <Table className={classes.table} aria-label="simple table">
