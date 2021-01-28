@@ -9,17 +9,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function createData(name, val1, val2, val3) {
-    return { name, val1, val2, val3 };
-  }
 
-export default function ResultTable({result}) {
+
+export default function ResultTable({rows}) {
     const classes = useStyles();
-    const [rows, setRows] = React.useState([
-        createData("0~0.025 (Group 1)", "0.0%", "0.0%", "0.0%"),
-        createData("0.025~0.3 (Group 2)", "0.0%", "0.0%", "0.0%"),
-        createData("0.3~1.0 (Group 3)", "0.0%", "0.0%", "0.0%"),]
-    )
+    
     return (
         <div className="result-rapper">
             <TableContainer component={Paper}>
