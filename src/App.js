@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   header: {
     borderRadius: "10px 10px 0px 0px",
 
-  }
+  },
 }));
 
 function createData(name, val1, val2, val3) {
@@ -36,6 +36,7 @@ export default function App() {
   const [tabValue, setTapValue] = React.useState(0);
   const [tableVisible, setTableVisible] = React.useState(false);
   const [rows, setRows] = React.useState([]);
+  const [loading, setLoading] = React.useState(false);
 
 
   const handleTabChange = (event, newValue) => {
@@ -47,7 +48,9 @@ export default function App() {
   const handleSend = async () => {
     try {
       const restAPIData = madeAPIData(tabValue, result);
-      if (restAPIData === 0) return;
+      setLoading(true);
+      if (restAPIData === 0) {setLoading(false); return;} 
+
       const req = await axios.post("/data", restAPIData);
 
       //rows 설정 
@@ -63,32 +66,35 @@ export default function App() {
       }
 
       setRows(rows);
+      setLoading(false);
 
       if (tableVisible === false) setTableVisible(true);
     }
     catch (e) {
       //------test code--------//
-      // const fakeReq = {
-      //   group_1 : ["0.0%", "0.0%", "0.0%"],
-      //   group_2 : ["0.0%", "0.0%", "0.0%"],
-      //   group_3 : ["0.0%", "0.0%", "0.0%"]
-      // }
-      // const fakeReq2 = {
-      //   group_1 : ["0.0%", "0.0%", "0.0%"],
-      //   group_2 : ["0.0%", "0.0%", "0.0%"],
-      //   group_3 : ["0.0%", "0.0%", "0.0%"],
-      //   group_4 : ["0.0%", "0.0%", "0.0%"],
-      //   group_5 : ["0.0%", "0.0%", "0.0%"],
-      // }
-      // let rowsNamePicker;
-      // if(tabValue === 0) rowsNamePicker = baselibeRowNames;
-      // else if(tabValue === 0) rowsNamePicker = DNA_suppressionRowNames;
-      // rows.splice(0);
-      // for(let i =0; i < rowsNamePicker.length ; i ++){
-      //   rows.push(createData(rowsNamePicker[i],...fakeReq[`group_${i + 1}`]));
-      // }
-      // setRows(rows);
-      // if (tableVisible === false) setTableVisible(true);
+      const fakeReq = {
+        group_1 : ["0.0%", "0.0%", "0.0%"],
+        group_2 : ["0.0%", "0.0%", "0.0%"],
+        group_3 : ["0.0%", "0.0%", "0.0%"]
+      }
+      const fakeReq2 = {
+        group_1 : ["0.0%", "0.0%", "0.0%"],
+        group_2 : ["0.0%", "0.0%", "0.0%"],
+        group_3 : ["0.0%", "0.0%", "0.0%"],
+        group_4 : ["0.0%", "0.0%", "0.0%"],
+        group_5 : ["0.0%", "0.0%", "0.0%"],
+      }
+      let rowsNamePicker;
+      if(tabValue === 0) rowsNamePicker = baselibeRowNames;
+      else if(tabValue === 0) rowsNamePicker = DNA_suppressionRowNames;
+      rows.splice(0);
+      for(let i =0; i < rowsNamePicker.length ; i ++){
+        rows.push(createData(rowsNamePicker[i],...fakeReq[`group_${i + 1}`]));
+      }
+      setRows(rows);
+
+      setLoading(false);
+      if (tableVisible === false) setTableVisible(true);
     }
   }
   
@@ -110,7 +116,7 @@ export default function App() {
             </Tabs>
           </AppBar>
 
-          <TabPanel onSend={handleSend} value={tabValue} index={0}
+          <TabPanel loading = {loading} onSend={handleSend} value={tabValue} index={0}
             children_1={
               <>
                 <InputComponent

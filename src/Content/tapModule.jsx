@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
-import { Collapse, Button } from '@material-ui/core';
+import { Collapse, Button , CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { SendOutlined } from '@material-ui/icons';
 
@@ -16,13 +16,22 @@ const useStyles = makeStyles((theme) => ({
         width: "0.7em"
     },
     sendButton : {
+        width : 50,
         float : 'right'
-    }
+    },
+    buttonProgress: {
+        color: "#fff",
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        marginTop: -12,
+        marginLeft: -12,
+      },
 }));
 
 export function TabPanel(props) {
     const classes = useStyles();
-    const { children_1, children_2, value, index, onSend,...other } = props;
+    const { children_1, children_2, value, index, onSend,loading,...other } = props;
 
     return (
 
@@ -52,9 +61,11 @@ export function TabPanel(props) {
                 color="primary"
                 className={classes.sendButton}
                 onClick = {onSend}
-                >
-                    <SendOutlined className={classes.icon} ></SendOutlined>
-                    Send
+                >{loading ?
+                    <><CircularProgress size={24} className = {classes.buttonProgress} />&nbsp;</>: 
+                    <><SendOutlined className={classes.icon} ></SendOutlined>Send</>
+                }
+                   
                 </Button></div>
 
         </Box>

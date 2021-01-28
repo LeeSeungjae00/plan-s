@@ -48,7 +48,7 @@ const madeAPIData = (tabValue, result) => {
     }
     for (let arr of arrPicker) {
         if (!result[arr]) {
-            alert(`insert data ${arr}`)
+            alert(`insert ${arr}`)
             return 0;
         }
         restAPIData[arr] = result[arr]
