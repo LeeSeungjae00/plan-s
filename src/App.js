@@ -81,7 +81,7 @@ export default function App() {
       }
       let rowsNamePicker;
       if (tabValue === 0) rowsNamePicker = baselibeRowNames;
-      else if (tabValue === 0) rowsNamePicker = DNA_suppressionRowNames;
+      else if (tabValue === 1) rowsNamePicker = DNA_suppressionRowNames;
       rows.splice(0);
       for (let i = 0; i < rowsNamePicker.length; i++) {
         rows.push(createData(rowsNamePicker[i], ...fakeReq[`group_${i + 1}`]));
@@ -100,9 +100,7 @@ export default function App() {
       <div className="App">
         <div className="tab-rapper">
           <div className={classes.root}>
-            <AppBar
-              className={classes.header}
-              position="static">
+            <AppBar className={classes.header} position="static">
               <Tabs
                 variant="fullWidth"
                 value={tabValue}
@@ -236,8 +234,10 @@ export default function App() {
               <ArrowRight fontSize="large"></ArrowRight>
             </Grow>
             <Grow timeout={1500} in={tableVisible}>
-              <div><ResultTable rows={rows}></ResultTable></div>
-            </Grow></> : null
+              <div><ResultTable loading = {loading} rows={rows}></ResultTable></div>
+            </Grow>
+          </> :
+          null
         }
       </div>
     </>
