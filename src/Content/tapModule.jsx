@@ -59,6 +59,7 @@ export function TabPanel(props) {
                 color="primary"
                 className={classes.sendButton}
                 onClick = {onSend}
+                disabled = {loading}
                 >{loading ?
                     <><CircularProgress size={24} className = {classes.buttonProgress} />&nbsp;</>: 
                     <><SendOutlined className={classes.icon} ></SendOutlined>Send</>
