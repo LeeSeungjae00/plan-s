@@ -67,36 +67,31 @@ export default function App() {
       if (tableVisible === false) setTableVisible(true);
     }
     catch (e) {
-      const fakeReq = {
-        group_1 : ["0.0%", "0.0%", "0.0%"],
-        group_2 : ["0.0%", "0.0%", "0.0%"],
-        group_3 : ["0.0%", "0.0%", "0.0%"]
-      }
-      const fakeReq2 = {
-        group_1 : ["0.0%", "0.0%", "0.0%"],
-        group_2 : ["0.0%", "0.0%", "0.0%"],
-        group_3 : ["0.0%", "0.0%", "0.0%"],
-        group_4 : ["0.0%", "0.0%", "0.0%"],
-        group_5 : ["0.0%", "0.0%", "0.0%"],
-      }
-      let rowsNamePicker;
-
-      if(tabValue === 0) rowsNamePicker = baselibeRowNames;
-      else if(tabValue === 0) rowsNamePicker = DNA_suppressionRowNames;
-
-      rows.splice(0);
-
-      for(let i =0; i < rowsNamePicker.length ; i ++){
-        rows.push(createData(rowsNamePicker[i],...fakeReq[`group_${i + 1}`]));
-      }
-      
-      setRows(rows);
-      if (tableVisible === false) setTableVisible(true);
-      
+      //------test code--------//
+      // const fakeReq = {
+      //   group_1 : ["0.0%", "0.0%", "0.0%"],
+      //   group_2 : ["0.0%", "0.0%", "0.0%"],
+      //   group_3 : ["0.0%", "0.0%", "0.0%"]
+      // }
+      // const fakeReq2 = {
+      //   group_1 : ["0.0%", "0.0%", "0.0%"],
+      //   group_2 : ["0.0%", "0.0%", "0.0%"],
+      //   group_3 : ["0.0%", "0.0%", "0.0%"],
+      //   group_4 : ["0.0%", "0.0%", "0.0%"],
+      //   group_5 : ["0.0%", "0.0%", "0.0%"],
+      // }
+      // let rowsNamePicker;
+      // if(tabValue === 0) rowsNamePicker = baselibeRowNames;
+      // else if(tabValue === 0) rowsNamePicker = DNA_suppressionRowNames;
+      // rows.splice(0);
+      // for(let i =0; i < rowsNamePicker.length ; i ++){
+      //   rows.push(createData(rowsNamePicker[i],...fakeReq[`group_${i + 1}`]));
+      // }
+      // setRows(rows);
+      // if (tableVisible === false) setTableVisible(true);
     }
   }
-
-
+  
   return (
     <div className="App">
       <div className="tab-rapper">

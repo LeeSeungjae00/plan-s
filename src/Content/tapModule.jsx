@@ -29,7 +29,6 @@ export function TabPanel(props) {
         <Box className={classes.root} p={3}>
             <form className="input_form"
                 role="tabpanel"
-                // hidden={value !== index}
                 id={`nav-tabpanel-1`}
                 aria-labelledby={`nav-tab-1`}
                 {...other}
@@ -40,7 +39,6 @@ export function TabPanel(props) {
             <Collapse in={(value === 1)}>
                 <form className="input_form"
                     role="tabpanel"
-                    // hidden={value !== index}
                     id={`nav-tabpanel-2`}
                     aria-labelledby={`nav-tab-2`}
                     {...other}
