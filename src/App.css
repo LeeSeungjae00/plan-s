@@ -14,6 +14,7 @@
 .tab-rapper{
   width: fit-content;
   height: fit-content;
+  transition: right 1000mm;
 }
 
 .result_rapper{

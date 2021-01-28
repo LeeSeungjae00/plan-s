@@ -8,6 +8,29 @@ import RadioComponent from './Content/RadioComponent';
 import ResultTable from './Content/ResultTable'
 import { ArrowRight } from '@material-ui/icons';
 
+const baseline = [
+      "age", 
+      "sex", 
+      "platelet",
+      "antivirals",
+      "albumin",
+      "cirrhosis",
+      "total_bilirubin",
+      "presence_of_HBeAg",
+      "ALT",
+      "HBV_DNA"
+]
+
+const DNA_suppression = [
+  ...baseline,
+  "platelet_dna",
+  "cirrhosis_dna",
+  "albumin_dna",
+  "total_bilirubin_dna",
+  "ATL_dna",
+  "HBV_dna_dna",
+  "presence_of_HBeAg_dna"
+]
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,27 +45,40 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const result = {};
 
 export default function App() {
   const classes = useStyles();
   const [tabValue, setTapValue] = React.useState(0);
   const [tableVisible, setTableVisible] = React.useState(false);
 
-  const result = {};
-
-
+  
   const handleTabChange = (event, newValue) => {
     setTableVisible(false);
     setTapValue(newValue);
   };
 
   const handleSend = () => {
-
-    console.log(result);
-    if (tableVisible === false) setTableVisible(true)
-    else {
-
+    
+    
+    let restAPIData = {}
+    let arrPicker;
+    if(tabValue === 0){
+      restAPIData.model = "baseline";
+      arrPicker = baseline;
+    }else if(tabValue === 1){
+      restAPIData.model = "DNA_suppression"
+      arrPicker = DNA_suppression;
     }
+    for(let arr of arrPicker){
+      if(!result[arr]){
+        alert(`insert data ${arr}`)
+        return 0;
+      } 
+      restAPIData[arr] = result[arr] 
+    }
+    console.log(restAPIData);
+    if (tableVisible === false) setTableVisible(true);
   }
 
 
