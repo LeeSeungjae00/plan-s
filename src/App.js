@@ -50,7 +50,7 @@ export default function App() {
       const restAPIData = madeAPIData(tabValue, result);
       setLoading(true);
       if (restAPIData === 0) { setLoading(false); return; }
-
+      const loadTest = await new Promise((res) => setTimeout(() => {res("test")}, 1000));
       const req = await axios.post("/data", restAPIData);
 
       //rows 설정 
