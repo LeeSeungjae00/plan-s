@@ -2,35 +2,17 @@ import React from 'react';
 import './App.css'
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Tabs, Grow } from '@material-ui/core';
-import { TabPanel, a11yProps, LinkTab } from './Content/tapModule'
-import InputComponent from './Content/InputComponent'
+import { TabPanel, a11yProps, LinkTab } from './Content/tapModule';
+import InputComponent from './Content/InputComponent';
 import RadioComponent from './Content/RadioComponent';
-import ResultTable from './Content/ResultTable'
+import ResultTable from './Content/ResultTable';
 import { ArrowRight } from '@material-ui/icons';
+import madeAPIData from './Module/madeAPIData';
+import axios from 'axios';
 
-const baseline = [
-      "age", 
-      "sex", 
-      "platelet",
-      "antivirals",
-      "albumin",
-      "cirrhosis",
-      "total_bilirubin",
-      "presence_of_HBeAg",
-      "ALT",
-      "HBV_DNA"
-]
 
-const DNA_suppression = [
-  ...baseline,
-  "platelet_dna",
-  "cirrhosis_dna",
-  "albumin_dna",
-  "total_bilirubin_dna",
-  "ATL_dna",
-  "HBV_dna_dna",
-  "presence_of_HBeAg_dna"
-]
+
+const result = {};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,40 +27,34 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const result = {};
+
 
 export default function App() {
   const classes = useStyles();
   const [tabValue, setTapValue] = React.useState(0);
   const [tableVisible, setTableVisible] = React.useState(false);
 
-  
+
   const handleTabChange = (event, newValue) => {
     setTableVisible(false);
     setTapValue(newValue);
   };
 
-  const handleSend = () => {
-    
-    
-    let restAPIData = {}
-    let arrPicker;
-    if(tabValue === 0){
-      restAPIData.model = "baseline";
-      arrPicker = baseline;
-    }else if(tabValue === 1){
-      restAPIData.model = "DNA_suppression"
-      arrPicker = DNA_suppression;
+
+  const handleSend = async () => {
+    try {
+      const restAPIData = madeAPIData(tabValue, result);
+      if (restAPIData === 0) return;
+
+      const req = await axios.post("/data", restAPIData);
+
+      
+
+      if (tableVisible === false) setTableVisible(true);
     }
-    for(let arr of arrPicker){
-      if(!result[arr]){
-        alert(`insert data ${arr}`)
-        return 0;
-      } 
-      restAPIData[arr] = result[arr] 
+    catch (e) {
+      console.log(e);
     }
-    console.log(restAPIData);
-    if (tableVisible === false) setTableVisible(true);
   }
 
 
@@ -217,15 +193,15 @@ export default function App() {
         </div>
       </div>
       { tableVisible ?
-      <>
-        <Grow timeout = {1000} in={tableVisible}>
-          <ArrowRight fontSize="large"></ArrowRight>
-        </Grow>
-        <Grow in={tableVisible}
-          style={{ transformOrigin: '0 0 0' }}
-          {...(tableVisible ? { timeout: 1500 } : {})}>
-          <div><ResultTable result={result}></ResultTable></div>
-        </Grow></> : null
+        <>
+          <Grow timeout={1000} in={tableVisible}>
+            <ArrowRight fontSize="large"></ArrowRight>
+          </Grow>
+          <Grow in={tableVisible}
+            style={{ transformOrigin: '0 0 0' }}
+            {...(tableVisible ? { timeout: 1500 } : {})}>
+            <div><ResultTable result={result}></ResultTable></div>
+          </Grow></> : null
       }
     </div>
   );
