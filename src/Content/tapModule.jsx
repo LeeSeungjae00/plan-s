@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
         width: "0.7em"
     },
     sendButton : {
-        width : 50,
+        width : 80,
         float : 'right'
     },
     buttonProgress: {
@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 export function TabPanel(props) {
     const classes = useStyles();
-    const { children_1, children_2, value, index, onSend,loading,...other } = props;
+    const { children_1, children_2, value, onSend,loading } = props;
 
     return (
 
@@ -40,7 +40,6 @@ export function TabPanel(props) {
                 role="tabpanel"
                 id={`nav-tabpanel-1`}
                 aria-labelledby={`nav-tab-1`}
-                {...other}
             >
                 {children_1}
 
@@ -50,7 +49,6 @@ export function TabPanel(props) {
                     role="tabpanel"
                     id={`nav-tabpanel-2`}
                     aria-labelledby={`nav-tab-2`}
-                    {...other}
                 >
                     {children_2}
                 </form>
@@ -65,7 +63,6 @@ export function TabPanel(props) {
                     <><CircularProgress size={24} className = {classes.buttonProgress} />&nbsp;</>: 
                     <><SendOutlined className={classes.icon} ></SendOutlined>Send</>
                 }
-                   
                 </Button></div>
 
         </Box>
