@@ -10,6 +10,8 @@ import ResultTable from './Content/ResultTable';
 import madeAPIData, { baselibeRowNames, DNA_suppressionRowNames } from './Module/madeAPIData';
 import axios from 'axios';
 import Header from './Content/Header/Header'
+import ResultArea_1 from './Content/ResultArea_1'
+import ResultArea_2 from './Content/ResultArea_2'
 
 
 const result = {};
@@ -53,7 +55,6 @@ export default function App() {
       const loadTest = await new Promise((res) => setTimeout(() => {res("test")}, 1000));
       const req = await axios.post("/data", restAPIData);
 
-      //rows 설정 
       let rowsNamePicker;
 
       if (tabValue === 0) rowsNamePicker = baselibeRowNames;
@@ -96,7 +97,7 @@ export default function App() {
   return (
     <>
       <Header title="Hepatocellular carcinoma prediction in Chronic hepatitis B
-      Machine learning based prediction "></Header>
+      Machine learning based prediction"></Header>
       <div className="App">
         <div className="tab-rapper">
           <div className={classes.root}>
@@ -113,122 +114,13 @@ export default function App() {
             </AppBar>
 
             <TabPanel loading={loading} onSend={handleSend} value={tabValue} index={0}
-              children_1={
-                <>
-                  <InputComponent
-                    type="number"
-                    min="0"
-                    lable="Age"
-                    adornment="Years"
-                    setInputVal={age => result.age = age}
-                  ></InputComponent>
-                  <RadioComponent
-                    title="Sex"
-                    lable1="male"
-                    lable2="female"
-                    setRadioVal={sex => result.sex = sex}
-                  ></RadioComponent>
-                  <InputComponent
-                    type="number"
-                    lable="Platelet, baseline"
-                    adornment={<>x1000mm<sup className="mutip">3</sup></>}
-                    setInputVal={platelet => result.platelet = platelet}
-                  ></InputComponent>
-                  <RadioComponent
-                    title="Antivirals agent"
-                    lable1="entecavir"
-                    lable2="tenofovir"
-                    setRadioVal={antivirals => result.antivirals = antivirals}
-                  ></RadioComponent>
-                  <InputComponent
-                    type="number"
-                    lable="Albumin, baseline"
-                    adornment="g/dL"
-                    setInputVal={albumin => result.albumin = albumin}
-                  ></InputComponent>
-                  <RadioComponent
-                    title="Cirrhosis, baseline"
-                    lable1="yes"
-                    lable2="no"
-                    setRadioVal={cirrhosis => result.cirrhosis = cirrhosis}
-                  ></RadioComponent>
-                  <InputComponent
-                    type="number"
-                    lable="Total bilirubin, baseline"
-                    adornment="mg/dL"
-                    setInputVal={total_bilirubin => result.total_bilirubin = total_bilirubin}
-                  ></InputComponent>
-                  <RadioComponent
-                    title="Presence of HBeAg, baseline"
-                    lable1="yes"
-                    lable2="no"
-                    setRadioVal={presence_of_HBeAg => result.presence_of_HBeAg = presence_of_HBeAg}
-                  ></RadioComponent>
-                  <InputComponent
-                    type="number"
-                    lable="ALT, baseline"
-                    adornment="U/L"
-                    setInputVal={ALT => result.ALT = ALT}
-                  ></InputComponent>
-                  <InputComponent
-                    type="number"
-                    lable="HBV DNA, baseline"
-                    adornment="IU/mL"
-                    setInputVal={HBV_DNA => result.HBV_DNA = HBV_DNA}
-                  ></InputComponent>
-                </>
-              }
-              children_2={
-                <>
-                  <InputComponent
-                    type="number"
-                    lable="Platelet, DNA suppression"
-                    adornment={<>x1000mm<sup className="mutip">3</sup></>}
-                    setInputVal={platelet_dna => result.platelet_dna = platelet_dna}
-                  ></InputComponent>
-                  <RadioComponent
-                    title="Cirrhosis, DNA suppression"
-                    lable1="yes"
-                    lable2="no"
-                    setRadioVal={cirrhosis_dna => result.cirrhosis_dna = cirrhosis_dna}
-                  ></RadioComponent>
-                  <InputComponent
-                    type="number"
-                    lable="Albumin, DNA suppression"
-                    adornment="g/dL"
-                    setInputVal={albumin_dna => result.albumin_dna = albumin_dna}
-                  ></InputComponent>
-                  <InputComponent
-                    type="number"
-                    lable="Total bilirubin, DNA suppression"
-                    adornment="mg/dL"
-                    setInputVal={total_bilirubin_dna => result.total_bilirubin_dna = total_bilirubin_dna}
-                  ></InputComponent>
-                  <InputComponent
-                    type="number"
-                    lable="ALT, DNA suppression"
-                    adornment="U/L"
-                    setInputVal={ATL_dna => result.ATL_dna = ATL_dna}
-                  ></InputComponent>
-                  <InputComponent
-                    type="number"
-                    lable="HBV DNA, DNA suppression"
-                    adornment="IU/mL"
-                    setInputVal={HBV_dna_dna => result.HBV_dna_dna = HBV_dna_dna}
-                  ></InputComponent>
-                  <RadioComponent
-                    title="Presence of HBeAg, DNA suppression"
-                    lable1="yes"
-                    lable2="no"
-                    setRadioVal={presence_of_HBeAg_dna => result.presence_of_HBeAg_dna = presence_of_HBeAg_dna}
-                  ></RadioComponent>
-                </>
-              }
+              children_1={<ResultArea_1 result = {result}></ResultArea_1>}
+              children_2={<ResultArea_2 result = {result}></ResultArea_2>}
             >
             </TabPanel>
           </div>
         </div>
-        {tableVisible ?
+        {tableVisible &&
           <>
             <Grow timeout={1000} in={tableVisible}>
               <ArrowRight fontSize="large"></ArrowRight>
@@ -236,8 +128,7 @@ export default function App() {
             <Grow timeout={1500} in={tableVisible}>
               <div><ResultTable loading = {loading} rows={rows}></ResultTable></div>
             </Grow>
-          </> :
-          null
+          </>
         }
       </div>
     </>
