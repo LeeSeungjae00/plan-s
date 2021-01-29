@@ -4,14 +4,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Tabs, Grow } from '@material-ui/core';
 import { ArrowRight } from '@material-ui/icons';
 import { TabPanel, a11yProps, LinkTab } from './Content/tapModule';
-import InputComponent from './Content/InputComponent';
-import RadioComponent from './Content/RadioComponent';
 import ResultTable from './Content/ResultTable';
 import madeAPIData, { baselibeRowNames, DNA_suppressionRowNames } from './Module/madeAPIData';
 import axios from 'axios';
 import Header from './Content/Header/Header'
-import ResultArea_1 from './Content/ResultArea_1'
-import ResultArea_2 from './Content/ResultArea_2'
+import TapAreaSt from './Content/TapAreaFirst'
+import TapAreaNd from './Content/TapAreaSecond'
 
 
 const result = {};
@@ -76,9 +74,9 @@ export default function App() {
       const fakeReq = {
         group_1: ["0.0%", "0.0%", "0.0%"],
         group_2: ["0.0%", "0.0%", "0.0%"],
-        group_3: ["0.0%", "0.0%", "0.0%"],
         group_4: ["0.0%", "0.0%", "0.0%"],
         group_5: ["0.0%", "0.0%", "0.0%"],
+        group_3: ["0.0%", "0.0%", "0.0%"],
       }
       let rowsNamePicker;
       if (tabValue === 0) rowsNamePicker = baselibeRowNames;
@@ -114,8 +112,8 @@ export default function App() {
             </AppBar>
 
             <TabPanel loading={loading} onSend={handleSend} value={tabValue} index={0}
-              children_1={<ResultArea_1 result = {result}></ResultArea_1>}
-              children_2={<ResultArea_2 result = {result}></ResultArea_2>}
+              children_1={<TapAreaSt result = {result}></TapAreaSt>}
+              children_2={<TapAreaNd result = {result}></TapAreaNd>}
             >
             </TabPanel>
           </div>

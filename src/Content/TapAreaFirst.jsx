@@ -2,7 +2,7 @@ import React from 'react'
 import InputComponent from './InputComponent';
 import RadioComponent from './RadioComponent';
 
-export default function ResultArea_1({result}) {
+export default function ResultAreaFirst({result}) {
     return (
         <>
         <InputComponent
