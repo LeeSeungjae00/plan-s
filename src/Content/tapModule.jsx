@@ -27,6 +27,13 @@ const useStyles = makeStyles((theme) => ({
         marginTop: -12,
         marginLeft: -12,
       },
+    tab : {
+        backgroundColor : "#4951d9",
+        borderRadius: "10px 10px 0px 0px"
+    },
+    selectTab : {
+        backgroundColor : "#b0d2a4"
+    }
 }));
 
 export function TabPanel(props) {
@@ -84,8 +91,13 @@ export function a11yProps(index) {
 }
 
 export function LinkTab(props) {
+    const classes = useStyles();
     return (
         <Tab
+            // classes = {{
+            //     root : classes.tab,
+            //     selected : classes.selectTab
+            // }}
             component="a"
             onClick={(event) => {
                 event.preventDefault();

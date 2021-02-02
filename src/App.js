@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css'
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Tabs, Grow } from '@material-ui/core';
@@ -37,6 +37,16 @@ export default function App() {
   const [tableVisible, setTableVisible] = useState(false);
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [rangeFilter, setRangeFilter] = useState({});
+
+  useEffect(() => {
+    const getRange = async () => {
+      const res = await axios.get("/limits");
+      setRangeFilter(res.data);
+    }
+    getRange();
+
+  }, [])
 
 
   const handleTabChange = (event, newValue) => {
@@ -50,8 +60,7 @@ export default function App() {
       const restAPIData = madeAPIData(tabValue, result);
       setLoading(true);
       if (restAPIData === 0) { setLoading(false); return; }
-      const loadTest = await new Promise((res) => setTimeout(() => {res("test")}, 1000));
-      const req = await axios.post("/data", restAPIData);
+      const res = await axios.post("/data", restAPIData);
 
       let rowsNamePicker;
 
@@ -61,7 +70,7 @@ export default function App() {
       rows.splice(0);
 
       for (let i = 0; i < rowsNamePicker.length; i++) {
-        rows.push(createData(rowsNamePicker[i], ...req.data[`group_${i + 1}`]));
+        rows.push(createData(rowsNamePicker[i], ...res.data[`group_${i + 1}`]));
       }
 
       setRows(rows);
@@ -70,25 +79,8 @@ export default function App() {
       if (tableVisible === false) setTableVisible(true);
     }
     catch (e) {
-      //------test code--------//
-      const fakeReq = {
-        group_1: ["0.0%", "0.0%", "0.0%"],
-        group_2: ["0.0%", "0.0%", "0.0%"],
-        group_4: ["0.0%", "0.0%", "0.0%"],
-        group_5: ["0.0%", "0.0%", "0.0%"],
-        group_3: ["0.0%", "0.0%", "0.0%"],
-      }
-      let rowsNamePicker;
-      if (tabValue === 0) rowsNamePicker = baselibeRowNames;
-      else if (tabValue === 1) rowsNamePicker = DNA_suppressionRowNames;
-      rows.splice(0);
-      for (let i = 0; i < rowsNamePicker.length; i++) {
-        rows.push(createData(rowsNamePicker[i], ...fakeReq[`group_${i + 1}`]));
-      }
-      setRows(rows);
-
       setLoading(false);
-      if (tableVisible === false) setTableVisible(true);
+      console.log(e);
     }
   }
 
@@ -112,8 +104,8 @@ export default function App() {
             </AppBar>
 
             <TabPanel loading={loading} onSend={handleSend} value={tabValue} index={0}
-              children_1={<TapAreaSt result = {result}></TapAreaSt>}
-              children_2={<TapAreaNd result = {result}></TapAreaNd>}
+              children_1={<TapAreaSt rangeFilter={rangeFilter} result={result}></TapAreaSt>}
+              children_2={<TapAreaNd rangeFilter={rangeFilter} result={result}></TapAreaNd>}
             >
             </TabPanel>
           </div>
@@ -124,7 +116,7 @@ export default function App() {
               <ArrowRight fontSize="large"></ArrowRight>
             </Grow>
             <Grow timeout={1500} in={tableVisible}>
-              <div><ResultTable loading = {loading} rows={rows}></ResultTable></div>
+              <div><ResultTable loading={loading} rows={rows}></ResultTable></div>
             </Grow>
           </>
         }

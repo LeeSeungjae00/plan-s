@@ -2,8 +2,8 @@ import React from 'react'
 import InputComponent from './InputComponent';
 import RadioComponent from './RadioComponent';
 
-export default function ResultAreaFirst({result}) {
-    return (
+export default function ResultAreaFirst({result, rangeFilter}) {
+  return (
         <>
         <InputComponent
           type="number"
@@ -21,8 +21,25 @@ export default function ResultAreaFirst({result}) {
         <InputComponent
           type="number"
           lable="Platelet, baseline"
+          min= {rangeFilter?.platelet?.min}
+          max= {rangeFilter?.platelet?.max}
           adornment={<>x1000mm<sup className="mutip">3</sup></>}
           setInputVal={platelet => result.platelet = platelet}
+        ></InputComponent>
+         <RadioComponent
+          title="Race"
+          lable1="Asian"
+          lable2="Caucasian"
+          setRadioVal={race => result.race = race}
+        ></RadioComponent>
+        
+        <InputComponent
+          type="number"
+          lable="Albumin, baseline"
+          min= {rangeFilter?.albumin?.min}
+          max= {rangeFilter?.albumin?.max}
+          adornment="g/dL"
+          setInputVal={albumin => result.albumin = albumin}
         ></InputComponent>
         <RadioComponent
           title="Antivirals agent"
@@ -32,9 +49,11 @@ export default function ResultAreaFirst({result}) {
         ></RadioComponent>
         <InputComponent
           type="number"
-          lable="Albumin, baseline"
-          adornment="g/dL"
-          setInputVal={albumin => result.albumin = albumin}
+          lable="Total bilirubin, baseline"
+          min= {rangeFilter?.total_bilirubin?.min}
+          max= {rangeFilter?.total_bilirubin?.max}
+          adornment="mg/dL"
+          setInputVal={total_bilirubin => result.total_bilirubin = total_bilirubin}
         ></InputComponent>
         <RadioComponent
           title="Cirrhosis, baseline"
@@ -44,9 +63,11 @@ export default function ResultAreaFirst({result}) {
         ></RadioComponent>
         <InputComponent
           type="number"
-          lable="Total bilirubin, baseline"
-          adornment="mg/dL"
-          setInputVal={total_bilirubin => result.total_bilirubin = total_bilirubin}
+          lable="ALT, baseline"
+          min= {rangeFilter?.ALT?.min}
+          max= {rangeFilter?.ALT?.max}
+          adornment="U/L"
+          setInputVal={ALT => result.ALT = ALT}
         ></InputComponent>
         <RadioComponent
           title="Presence of HBeAg, baseline"
@@ -56,13 +77,9 @@ export default function ResultAreaFirst({result}) {
         ></RadioComponent>
         <InputComponent
           type="number"
-          lable="ALT, baseline"
-          adornment="U/L"
-          setInputVal={ALT => result.ALT = ALT}
-        ></InputComponent>
-        <InputComponent
-          type="number"
           lable="HBV DNA, baseline"
+          min= {rangeFilter?.HBV_DNA?.min}
+          max= {rangeFilter?.HBV_DNA?.max}
           adornment="IU/mL"
           setInputVal={HBV_DNA => result.HBV_DNA = HBV_DNA}
         ></InputComponent>
