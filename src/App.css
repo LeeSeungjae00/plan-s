@@ -28,7 +28,7 @@
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: 1fr 1fr;
-  gap: 25px;
+  gap: 15px;
 }
 
 @media all and (max-width:1050px){

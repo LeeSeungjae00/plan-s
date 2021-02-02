@@ -9,7 +9,7 @@ import { SendOutlined } from '@material-ui/icons';
 const useStyles = makeStyles((theme) => ({
     root: {
         display: "grid",
-        gap: "25px"
+        gap: "15px"
     },
     icon: {
         marginRight: "3px",
