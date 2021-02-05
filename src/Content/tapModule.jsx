@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: "10px 10px 0px 0px"
     },
     selectTab : {
-        backgroundColor : "#b0d2a4"
+        backgroundColor : "#b4c5ea"
     }
 }));
 
@@ -94,10 +94,10 @@ export function LinkTab(props) {
     const classes = useStyles();
     return (
         <Tab
-            // classes = {{
-            //     root : classes.tab,
-            //     selected : classes.selectTab
-            // }}
+            classes = {{
+                root : classes.tab,
+                selected : classes.selectTab
+            }}
             component="a"
             onClick={(event) => {
                 event.preventDefault();

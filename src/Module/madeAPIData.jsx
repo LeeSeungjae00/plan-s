@@ -1,6 +1,6 @@
 const baseline = [
     "age",
-    "sex",
+    "male",
     "race",
     "platelet",
     "antivirals",
@@ -18,7 +18,7 @@ const DNA_suppression = [
     "cirrhosis_dna",
     "albumin_dna",
     "total_bilirubin_dna",
-    "ATL_dna",
+    "ALT_DNA",
     "HBV_DNA_dna",
     "presence_of_HBeAg_dna"
 ]
@@ -48,7 +48,7 @@ const madeAPIData = (tabValue, result) => {
         arrPicker = DNA_suppression;
     }
     for (let arr of arrPicker) {
-        if (!result[arr]) {
+        if (!result[arr] || result[arr] === "") {
             alert(`Please enter ${arr}`)
             return 0;
         }

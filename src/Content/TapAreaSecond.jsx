@@ -2,6 +2,7 @@ import React from 'react'
 import InputComponent from './InputComponent';
 import RadioComponent from './RadioComponent';
 
+
 export default function ResultAreaSecond({result, rangeFilter}) {
     return (
         <>
@@ -15,6 +16,8 @@ export default function ResultAreaSecond({result, rangeFilter}) {
         ></InputComponent>
         <RadioComponent
           title="Cirrhosis, DNA suppression"
+          value1={"true"}
+          value2={"false"}
           lable1="yes"
           lable2="no"
           setRadioVal={cirrhosis_dna => result.cirrhosis_dna = cirrhosis_dna}
@@ -29,6 +32,8 @@ export default function ResultAreaSecond({result, rangeFilter}) {
         ></InputComponent>
         <RadioComponent
           title="Presence of HBeAg, DNA suppression"
+          value1={"true"}
+          value2={"false"}
           lable1="yes"
           lable2="no"
           setRadioVal={presence_of_HBeAg_dna => result.presence_of_HBeAg_dna = presence_of_HBeAg_dna}
@@ -44,10 +49,10 @@ export default function ResultAreaSecond({result, rangeFilter}) {
         <InputComponent
           type="number"
           lable="ALT, DNA suppression"
-          min= {rangeFilter?.ATL_dna?.min}
-          max= {rangeFilter?.ATL_dna?.max}
+          min= {rangeFilter?.ALT_DNA?.min}
+          max= {rangeFilter?.ALT_DNA?.max}
           adornment="U/L"
-          setInputVal={ATL_dna => result.ATL_dna = ATL_dna}
+          setInputVal={ALT_DNA => result.ALT_DNA = ALT_DNA}
         ></InputComponent>
         <InputComponent
           type="number"
@@ -55,7 +60,7 @@ export default function ResultAreaSecond({result, rangeFilter}) {
           min= {rangeFilter?.HBV_DNA_dna?.min}
           max= {rangeFilter?.HBV_DNA_dna?.max}
           adornment="IU/mL"
-          setInputVal={HBV_dna_dna => result.HBV_DNA_dna = HBV_dna_dna}
+          setInputVal={HBV_DNA_dna => result.HBV_DNA_dna = HBV_DNA_dna}
         ></InputComponent>
         
       </>

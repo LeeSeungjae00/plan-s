@@ -41,8 +41,26 @@ export default function App() {
 
   useEffect(() => {
     const getRange = async () => {
-      const res = await axios.get("/limits");
-      setRangeFilter(res.data);
+      try {
+        const res = await axios.get("/limits");
+        setRangeFilter(res.data);
+      } catch (error) {
+        let test = {
+          ALT: { min: 1, max: 5994 },
+          ALT_DNA: { min: 1, max: 5994 },
+          HBV_DNA: { min: 0, max: 4520000000 },
+          HBV_DNA_dna: { min: 0, max: 3205 },
+          age: { min: 19, max: 94 },
+          albumin: { min: 1, max: 7.2 },
+          albumin_dna: { min: 1.3, max: 5.4 },
+          platelet: { min: 5, max: 662 },
+          platelet_dna: { min: 13, max: 670 },
+          total_bilirubin: { min: 0.2, max: 222 },
+          total_bilirubin_dna: { min: 0.1, max: 34.7 },
+        }
+        setRangeFilter(test);
+      }
+      
     }
     getRange();
 
