@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 export default function RadioComponent( {title ,lable1, lable2, value1,value2 , setRadioVal}) {
     const classes = useStyles();
     return (
-        <FormControl >
+        <FormControl fullWidth>
             <FormLabel >{title}</FormLabel>
             <RadioGroup className={classes.radiolist} onChange = {(e)=>{
                 if(e.target.defaultValue === "true") {setRadioVal(true); return}

@@ -4,7 +4,7 @@ import { InputAdornment, FormControl, Input, InputLabel, FormHelperText } from '
 export default function InputComponent({ lable, adornment, setInputVal, type, min, max }) {
     const [fonmHelper, setfonmHelper] = React.useState(false)
     return (
-        <FormControl>
+        <FormControl fullWidth>
             <InputLabel htmlFor={lable + "_id"}>{lable}</InputLabel>
             <Input
                 onChange={(e) => {
@@ -12,8 +12,11 @@ export default function InputComponent({ lable, adornment, setInputVal, type, mi
                 }}
                 onBlur={(e) => {
                     if(e.target.value !== ""){
-                        if (min > e.target.value * 1) {setfonmHelper(true); return;};
-                        if (max < e.target.value * 1) {setfonmHelper(true); return;};
+                        if (min > e.target.value * 1 || max < e.target.value * 1) {
+                            setInputVal("RangeOut");
+                            setfonmHelper(true);
+                            return;
+                        };
                         setInputVal(e.target.value * 1);
                     }else{
                         setfonmHelper(false);
@@ -24,7 +27,7 @@ export default function InputComponent({ lable, adornment, setInputVal, type, mi
                 endAdornment={<InputAdornment position="end">{adornment}</InputAdornment>}
                 id={lable + "_id"}>
             </Input>
-            {fonmHelper && <FormHelperText error id={lable + "-from-helper"}>{`Please enter a value from ${min} to ${max}.`}</FormHelperText>}
+            {fonmHelper && <FormHelperText error id={lable + "-from-helper"}>{`Please enter a value from ${min} to ${max}`}</FormHelperText>}
         </FormControl>
     )
 }

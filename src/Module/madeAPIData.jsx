@@ -1,45 +1,43 @@
-const baseline = [
-    "age",
-    "male",
-    "race",
+const baselineInput = [
     "platelet",
-    "antivirals",
     "albumin",
-    "cirrhosis",
     "total_bilirubin",
-    "presence_of_HBeAg",
     "ALT",
     "HBV_DNA"
 ]
 
-const DNA_suppression = [
-    ...baseline,
+
+const baseline = [
+    "age",
+    "male",
+    "race",
+    "antivirals",
+    "cirrhosis",
+    "presence_of_HBeAg",
+    ...baselineInput
+]
+
+const DNA_suppressionInput = [
     "platelet_dna",
-    "cirrhosis_dna",
     "albumin_dna",
     "total_bilirubin_dna",
-    "ALT_DNA",
     "HBV_DNA_dna",
+    "ALT_DNA",
+]
+
+const DNA_suppression = [
+    ...baseline,
+    ...DNA_suppressionInput,
+    "cirrhosis_dna",
     "presence_of_HBeAg_dna"
 ]
 
-export const baselibeRowNames = [
-    "0~0.025 (Group 1)",
-    "0.025~0.3 (Group 2)",
-    "0.3~1.0 (Group 3)"
-  ]
-export const DNA_suppressionRowNames = [
-    "0~0.03 (Group 1)",
-    "0.03~0.1 (Group 2)",
-    "0.1~0.2 (Group 3)",
-    "0.2~0.3 (Group 4)",
-    "0.3~1.0 (Group 5)"
-  ]
-  
+
 
 const madeAPIData = (tabValue, result) => {
     let restAPIData = {}
     let arrPicker;
+    let nullCount = 0;
     if (tabValue === 0) {
         restAPIData.model = "baseline";
         arrPicker = baseline;
@@ -48,11 +46,30 @@ const madeAPIData = (tabValue, result) => {
         arrPicker = DNA_suppression;
     }
     for (let arr of arrPicker) {
-        if (!result[arr] || result[arr] === "") {
-            alert(`Please enter ${arr}`)
+        if (result[arr] === undefined || result[arr] === "") {
+            if ([...DNA_suppressionInput, ...baselineInput].indexOf(arr) !== -1) {
+                result[arr] = null;
+            } else {
+                alert(`Please enter a more value`);
+                return 0;
+            }
+        } else if (result[arr] === "RangeOut") {
+            alert(`Please enter a valid range of values.`);
             return 0;
         }
         restAPIData[arr] = result[arr]
+    }
+
+    if (tabValue === 0) {
+        if (nullCount > 2) {
+            alert(`Please enter a more value`);
+            return 0;
+        }
+    } else {
+        if (nullCount > 4) {
+            alert(`Please enter a more value`);
+            return 0;
+        }
     }
     return restAPIData;
 }

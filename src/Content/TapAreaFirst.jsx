@@ -21,31 +21,6 @@ export default function ResultAreaFirst({result, rangeFilter}) {
           lable2="female"
           setRadioVal={male => result.male = male}
         ></RadioComponent>
-        <InputComponent
-          type="number"
-          lable="Platelet, baseline"
-          min= {rangeFilter?.platelet?.min}
-          max= {rangeFilter?.platelet?.max}
-          adornment={<>x1000mm<sup className="mutip">3</sup></>}
-          setInputVal={platelet => result.platelet = platelet}
-        ></InputComponent>
-         <RadioComponent
-          title="Race"
-          value1={"Asian"}
-          value2={"Caucasian"}
-          lable1="Asian"
-          lable2="Caucasian"
-          setRadioVal={race => result.race = race}
-        ></RadioComponent>
-        
-        <InputComponent
-          type="number"
-          lable="Albumin, baseline"
-          min= {rangeFilter?.albumin?.min}
-          max= {rangeFilter?.albumin?.max}
-          adornment="g/dL"
-          setInputVal={albumin => result.albumin = albumin}
-        ></InputComponent>
         <RadioComponent
           title="Antivirals agent"
           value1={"entecavir"}
@@ -54,6 +29,31 @@ export default function ResultAreaFirst({result, rangeFilter}) {
           lable2="tenofovir"
           setRadioVal={antivirals => result.antivirals = antivirals}
         ></RadioComponent>
+        <RadioComponent
+          title="Race"
+          value1={"Asian"}
+          value2={"Caucasian"}
+          lable1="Asian"
+          lable2="Caucasian"
+          setRadioVal={race => result.race = race}
+        ></RadioComponent>
+        <InputComponent
+          type="number"
+          lable="Platelet, baseline"
+          min= {rangeFilter?.platelet?.min}
+          max= {rangeFilter?.platelet?.max}
+          adornment={<>x1000mm<sup className="mutip">3</sup></>}
+          setInputVal={platelet => result.platelet = platelet}
+        ></InputComponent>
+        <InputComponent
+          type="number"
+          lable="Albumin, baseline"
+          min= {rangeFilter?.albumin?.min}
+          max= {rangeFilter?.albumin?.max}
+          adornment="g/dL"
+          setInputVal={albumin => result.albumin = albumin}
+        ></InputComponent>
+        
         <InputComponent
           type="number"
           lable="Total bilirubin, baseline"

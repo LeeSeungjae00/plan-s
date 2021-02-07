@@ -31,7 +31,7 @@
   gap: 15px;
 }
 
-@media all and (max-width:1050px){
+@media all and (max-width:500px){
   .input_form {
     display: grid;
     grid-template-rows: 1fr;
@@ -48,4 +48,34 @@
   display : flex; 
   justify-content : center; 
   align-content : center
+}
+
+.subtitle{
+  color: darkgrey;
+  font-size: 0.75rem;
+  border-top: #9c9c9c 1px solid;
+}
+
+.subtitle-PLANB{
+  font-size: 1rem;
+}
+
+.P{
+  color: #dab6e6;
+}
+
+.L{
+  color: #80cef5;
+}
+
+.A{
+  color: #97e6b7;
+}
+
+.N{
+  color: #cbff00;
+}
+
+.B{
+  color: #ff8f00;
 }
