@@ -25,8 +25,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function createData(val1, val2, val3) {
-  return {val1, val2, val3 };
+function createData(val1, val2, val3, val4 , val5 , val6 , val7 , val8 ) {
+  return {val1, val2, val3, val4 , val5 , val6 , val7 , val8 };
 }
 
 export default function App() {
@@ -88,13 +88,13 @@ export default function App() {
       if (tableVisible === false) setTableVisible(true);
     }
     catch (e) {
-      // const fakeres = { results: [20.1, 23.4, 45.6] }
+      // const fakeres = {"results":[0.4,4.4,6.9,9.8,12,13,20,100]}
       // rows.splice(0);
       // rows.push(createData(...fakeres.results));
       // setRows(rows);
       setLoading(false);
       // if (tableVisible === false) setTableVisible(true);
-      console.log(e);
+      // console.log(e);
     }
   }
 
