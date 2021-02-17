@@ -7,7 +7,7 @@ import { Bar } from 'react-chartjs-2';
 
 const useStyles = makeStyles((theme) => ({
     table: {
-        minWidth: 579,
+        minWidth: 591,
     },
     Progress: {
         color: "blue",
@@ -49,7 +49,7 @@ export default function ResultTable({ rows, loading }) {
     
 
     const data = {
-        labels: ['3yr', '5yr', '8yr' , '10yr', '12yr' ,'14yr','16yr','18yr'],
+        labels: ['1yr', '2yr', '3yr' , '4yr', '5yr' ,'6yr','7yr','8yr'],
         legend: {
             display: false, // label 숨기기
         },

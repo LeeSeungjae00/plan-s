@@ -71,7 +71,7 @@ export default function App() {
       if (tableVisible === false) setTableVisible(true);
     }
     catch (e) {
-      // const fakeres = {"results":[0.4,4.4,6.9,9.8,12,13,14.9,29]}
+      // const fakeres = {"results":[0.4,4.4,6.9,9.8,12,13,14.9,99]}
       // rows.splice(0);
       // rows.push(createData(...fakeres.results));
       // setRows(rows);
