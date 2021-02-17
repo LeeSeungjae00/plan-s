@@ -7,7 +7,7 @@ import { Bar } from 'react-chartjs-2';
 
 const useStyles = makeStyles((theme) => ({
     table: {
-        minWidth: 432,
+        minWidth: 579,
     },
     Progress: {
         color: "blue",
@@ -15,25 +15,38 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const options = {
-    legend: {
-        display: false, // label 숨기기
-    },
-    scales: {
-        yAxes: [{
-            ticks: {
-                min: 0, // 스케일에 대한 최솟갓 설정, 0 부터 시작
-                stepSize: 5, // 스케일에 대한 사용자 고정 정의 값
-            }
-        }]
-    },
-    maintainAspectRatio: false // false로 설정 시 사용자 정의 크기에 따라 그래프 크기가 결정됨.
-}
 
 
 
 export default function ResultTable({ rows, loading }) {
     const classes = useStyles();
+
+    
+
+    const options = {
+        legend: {
+            display: false, // label 숨기기
+        },
+        scales: {
+            yAxes: [{
+                ticks: {
+                    min: 0, // 스케일에 대한 최솟갓 설정, 0 부터 시작
+                    max: Math.max(
+                        rows[0].val1, rows[0].val2, rows[0].val3,
+                        rows[0].val4, rows[0].val5, rows[0].val6,
+                        rows[0].val7, rows[0].val8
+                    ) > 90 ? 100 : Math.max(
+                        rows[0].val1, rows[0].val2, rows[0].val3,
+                        rows[0].val4, rows[0].val5, rows[0].val6,
+                        rows[0].val7, rows[0].val8
+                    )+5,
+                    stepSize : 1
+                }
+            }]
+        },
+        maintainAspectRatio: false // false로 설정 시 사용자 정의 크기에 따라 그래프 크기가 결정됨.
+    }
+    
 
     const data = {
         labels: ['3yr', '5yr', '8yr' , '10yr', '12yr' ,'14yr','16yr','18yr'],
@@ -85,20 +98,22 @@ export default function ResultTable({ rows, loading }) {
                         <>
                             <TableHead>
                                 <TableRow>
-                                    <TableCell align="right">3yr</TableCell>
-                                    <TableCell align="right">5yr</TableCell>
-                                    <TableCell align="right">8yr</TableCell>
-                                    <TableCell align="right">10yr</TableCell>
-                                    <TableCell align="right">12yr</TableCell>
-                                    <TableCell align="right">14yr</TableCell>
-                                    <TableCell align="right">16yr</TableCell>
-                                    <TableCell align="right">18yr</TableCell>
+                                    <TableCell align="right">Year(s)</TableCell>
+                                    <TableCell align="right">1</TableCell>
+                                    <TableCell align="right">2</TableCell>
+                                    <TableCell align="right">3</TableCell>
+                                    <TableCell align="right">4</TableCell>
+                                    <TableCell align="right">5</TableCell>
+                                    <TableCell align="right">6</TableCell>
+                                    <TableCell align="right">7</TableCell>
+                                    <TableCell align="right">8</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {
                                     rows.map((row) => (
-                                        <TableRow key={row.name}>
+                                        <TableRow key = {row.val1}>
+                                            <TableCell align="right"></TableCell>
                                             <TableCell align="right">{row.val1 + "%"}</TableCell>
                                             <TableCell align="right">{row.val2 + "%"}</TableCell>
                                             <TableCell align="right">{row.val3 + "%"}</TableCell>
@@ -110,12 +125,13 @@ export default function ResultTable({ rows, loading }) {
                                         </TableRow>
                                     ))
                                 }
-                                <TableCell colSpan={8}>
+                                <TableRow>
+                                <TableCell colSpan={9}>
                                     <div style={{ width: '100%', height: 200 }}>
-                                        <Bar width={400}
-                                            height={200} data={data} options={options} />
+                                        <Bar width={400} height={200} data={data} options={options} />
                                     </div>
                                 </TableCell>
+                                </TableRow>
                             </TableBody>
 
                         </>}
