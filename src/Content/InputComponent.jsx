@@ -1,14 +1,17 @@
 import React from 'react'
 import { InputAdornment, FormControl, Input, InputLabel, FormHelperText } from '@material-ui/core';
 
-export default function InputComponent({ lable, adornment, setInputVal, type, min, max }) {
+export default function InputComponent({ val, setVal,lable, adornment, setInputVal, type, min, max }) {
     const [fonmHelper, setfonmHelper] = React.useState(false)
     return (
         <FormControl fullWidth>
             <InputLabel htmlFor={lable + "_id"}>{lable}</InputLabel>
             <Input
+                type = "number"
+                // value = {val}
                 onChange={(e) => {
                     setfonmHelper(false);
+                    // setVal(e.target.value);
                 }}
                 onBlur={(e) => {
                     if(e.target.value !== ""){

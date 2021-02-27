@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import Tab from '@material-ui/core/Tab';
 import Box from '@material-ui/core/Box';
-import { Fade, Button, CircularProgress } from '@material-ui/core';
+import { Button, CircularProgress } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { SendOutlined } from '@material-ui/icons';
 import InputComponent from './InputComponent';
@@ -40,17 +40,24 @@ const useStyles = makeStyles((theme) => ({
 
 export function TabPanel(props) {
     const classes = useStyles();
-    const { value, onSend, loading, rangeFilter, result } = props;
+    const formRef = React.useRef();
+    const { onSend, loading, rangeFilter, result , setTableVisible, resetResult} = props;
+    const [sex, setSex] = useState('');
+    const [race, setRace] = useState('');
+    const [antivirals, setAntivirals] = useState('');
+    const [cirrhosis, setCirrhosis] = useState('');
+    const [hebeag, setHebeag] = useState('');
+
 
     return (
 
         <Box className={classes.root} p={3}>
             <form className="input_form"
+                ref = {formRef}
                 role="tabpanel"
                 id={`nav-tabpanel-1`}
                 aria-labelledby={`nav-tab-1`}
             >
-                {/* {children_1} */}
                 <InputComponent
                     type="number"
                     min={rangeFilter?.age?.min}
@@ -60,6 +67,8 @@ export function TabPanel(props) {
                     setInputVal={age => result.age = age}
                 ></InputComponent>
                 <RadioComponent
+                    val = {sex}
+                    setVal = {setSex}
                     title="Sex"
                     value1={"true"}
                     value2={"false"}
@@ -67,42 +76,6 @@ export function TabPanel(props) {
                     lable2="female"
                     setRadioVal={male => result.male = male}
                 ></RadioComponent>
-                <RadioComponent
-                    title="Race"
-                    value1={"Asian"}
-                    value2={"Caucasian"}
-                    lable1="Asian"
-                    lable2="Caucasian"
-                    setRadioVal={race => result.race = race}
-                ></RadioComponent>
-                <RadioComponent
-                    title="Antivirals agent"
-                    value1={"entecavir"}
-                    value2={"tenofovir"}
-                    lable1="entecavir"
-                    lable2="tenofovir"
-                    setRadioVal={antivirals => result.antivirals = antivirals}
-                ></RadioComponent>
-                <RadioComponent
-                    title="Cirrhosis, baseline"
-                    value1={"true"}
-                    value2={"false"}
-                    lable1="yes"
-                    lable2="no"
-                    setRadioVal={cirrhosis => result.cirrhosis = cirrhosis}
-                ></RadioComponent>
-                <Fade in={(value === 1)}>
-                    <div>
-                        <RadioComponent
-                            title="Cirrhosis, DNA suppression"
-                            value1={"true"}
-                            value2={"false"}
-                            lable1="yes"
-                            lable2="no"
-                            setRadioVal={cirrhosis_dna => result.cirrhosis_dna = cirrhosis_dna}
-                        ></RadioComponent>
-                    </div>
-                </Fade>
                 <InputComponent
                     type="number"
                     lable="Platelet, baseline"
@@ -111,18 +84,16 @@ export function TabPanel(props) {
                     adornment={<>x1000mm<sup className="mutip">3</sup></>}
                     setInputVal={platelet => result.platelet = platelet}
                 ></InputComponent>
-                <Fade in={(value === 1)}>
-                    <div>
-                        <InputComponent
-                            type="number"
-                            lable="Platelet, DNA suppression"
-                            min={rangeFilter?.platelet_dna?.min}
-                            max={rangeFilter?.platelet_dna?.max}
-                            adornment={<>x1000mm<sup className="mutip">3</sup></>}
-                            setInputVal={platelet_dna => result.platelet_dna = platelet_dna}
-                        ></InputComponent>
-                    </div>
-                </Fade>
+                <RadioComponent
+                    val = {race}
+                    setVal = {setRace}
+                    title="Race"
+                    value1={"Asian"}
+                    value2={"Caucasian"}
+                    lable1="Asian"
+                    lable2="Caucasian"
+                    setRadioVal={race => result.race = race}
+                ></RadioComponent>
                 <InputComponent
                     type="number"
                     lable="Albumin, baseline"
@@ -131,19 +102,19 @@ export function TabPanel(props) {
                     adornment="g/dL"
                     setInputVal={albumin => result.albumin = albumin}
                 ></InputComponent>
-                <Fade in={(value === 1)}>
-                    <div>
-                        <InputComponent
-                            type="number"
-                            lable="Albumin, DNA suppression"
-                            min={rangeFilter?.albumin_dna?.min}
-                            max={rangeFilter?.albumin_dna?.max}
-                            adornment="g/dL"
-                            setInputVal={albumin_dna => result.albumin_dna = albumin_dna}
-                        ></InputComponent>
-                    </div>
-                </Fade>
+                <RadioComponent
+                    val = {antivirals}
+                    setVal = {setAntivirals}
+                    title="Antivirals agent"
+                    value1={"entecavir"}
+                    value2={"tenofovir"}
+                    lable1="entecavir"
+                    lable2="tenofovir"
+                    setRadioVal={antivirals => result.antivirals = antivirals}
+                ></RadioComponent>
                 <InputComponent
+                    // val = {totalBilirubin}
+                    // setVal = {setTotalBilirubin}
                     type="number"
                     lable="Total bilirubin, baseline"
                     min={rangeFilter?.total_bilirubin?.min}
@@ -151,19 +122,19 @@ export function TabPanel(props) {
                     adornment="mg/dL"
                     setInputVal={total_bilirubin => result.total_bilirubin = total_bilirubin}
                 ></InputComponent>
-                <Fade in={(value === 1)}>
-                    <div>
-                        <InputComponent
-                            type="number"
-                            lable="Total bilirubin, DNA suppression"
-                            min={rangeFilter?.total_bilirubin_dna?.min}
-                            max={rangeFilter?.total_bilirubin_dna?.max}
-                            adornment="mg/dL"
-                            setInputVal={total_bilirubin_dna => result.total_bilirubin_dna = total_bilirubin_dna}
-                        ></InputComponent>
-                    </div>
-                </Fade>
+                <RadioComponent
+                    val = {cirrhosis}
+                    setVal = {setCirrhosis}
+                    title="Cirrhosis, baseline"
+                    value1={"true"}
+                    value2={"false"}
+                    lable1="yes"
+                    lable2="no"
+                    setRadioVal={cirrhosis => result.cirrhosis = cirrhosis}
+                ></RadioComponent>
                 <InputComponent
+                    // val = {alt}
+                    // setVal = {setAlt}
                     type="number"
                     lable="ALT, baseline"
                     min={rangeFilter?.ALT?.min}
@@ -171,39 +142,9 @@ export function TabPanel(props) {
                     adornment="U/L"
                     setInputVal={ALT => result.ALT = ALT}
                 ></InputComponent>
-                <Fade in={(value === 1)}>
-                    <div>
-                        <InputComponent
-                            type="number"
-                            lable="ALT, DNA suppression"
-                            min={rangeFilter?.ALT_DNA?.min}
-                            max={rangeFilter?.ALT_DNA?.max}
-                            adornment="U/L"
-                            setInputVal={ALT_DNA => result.ALT_DNA = ALT_DNA}
-                        ></InputComponent>
-                    </div>
-                </Fade>
-                <InputComponent
-                    type="number"
-                    lable="HBV DNA, baseline"
-                    min={rangeFilter?.HBV_DNA?.min}
-                    max={rangeFilter?.HBV_DNA?.max}
-                    adornment="IU/mL"
-                    setInputVal={HBV_DNA => result.HBV_DNA = HBV_DNA}
-                ></InputComponent>
-                <Fade in={(value === 1)}>
-                    <div>
-                        <InputComponent
-                            type="number"
-                            lable="HBV DNA, DNA suppression"
-                            min={rangeFilter?.HBV_DNA_dna?.min}
-                            max={rangeFilter?.HBV_DNA_dna?.max}
-                            adornment="IU/mL"
-                            setInputVal={HBV_DNA_dna => result.HBV_DNA_dna = HBV_DNA_dna}
-                        ></InputComponent>
-                    </div>
-                </Fade>
                 <RadioComponent
+                    val = {hebeag}
+                    setVal = {setHebeag}
                     title="Presence of HBeAg, baseline"
                     value1={"true"}
                     value2={"false"}
@@ -211,33 +152,21 @@ export function TabPanel(props) {
                     lable2="no"
                     setRadioVal={presence_of_HBeAg => result.presence_of_HBeAg = presence_of_HBeAg}
                 ></RadioComponent>
-                <Fade in={(value === 1)}>
-                    <div>
-                        <RadioComponent
-                            title="Presence of HBeAg, DNA suppression"
-                            value1={"true"}
-                            value2={"false"}
-                            lable1="yes"
-                            lable2="no"
-                            setRadioVal={presence_of_HBeAg_dna => result.presence_of_HBeAg_dna = presence_of_HBeAg_dna}
-                        ></RadioComponent>
-                    </div>
-                </Fade>
-
-
+                <InputComponent
+                    // val = {hbv_dna}
+                    // setVal = {setHbv_dna}
+                    type="number"
+                    lable="HBV DNA, baseline"
+                    min={rangeFilter?.HBV_DNA?.min}
+                    max={rangeFilter?.HBV_DNA?.max}
+                    adornment="IU/mL"
+                    setInputVal={HBV_DNA => result.HBV_DNA = HBV_DNA}
+                ></InputComponent>
 
             </form>
-            {/* <Collapse in={(value === 1)}>
-                <form className="input_form"
-                    role="tabpanel"
-                    id={`nav-tabpanel-2`}
-                    aria-labelledby={`nav-tab-2`}
-                >
-                    {children_2}
-                </form>
-            </Collapse> */}
             <div>
                 <Button
+                    style = {{width : 142}}
                     variant="contained"
                     color="primary"
                     className={classes.sendButton}
@@ -245,9 +174,28 @@ export function TabPanel(props) {
                     disabled={loading}
                 >{loading ?
                     <><CircularProgress size={24} className={classes.buttonProgress} />&nbsp;</> :
-                    <><SendOutlined className={classes.icon} ></SendOutlined>Send</>
+                    <><SendOutlined className={classes.icon} ></SendOutlined>prediction</>
                     }
-                </Button></div>
+                </Button>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.sendButton}
+                    onClick={() => {
+                        setSex('');
+                        setRace('');
+                        setAntivirals('');
+                        setCirrhosis('');
+                        setHebeag('');
+                        setTableVisible(false);
+                        formRef.current.reset();
+                        resetResult();
+                    }}
+                    disabled={loading}
+                    style = {{marginRight : 10}}
+                >clear
+                </Button>
+                </div>
 
         </Box>
     );

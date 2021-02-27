@@ -10,7 +10,7 @@ import axios from 'axios';
 import Header from './Content/Header/Header'
 
 
-const result = {};
+let result = {};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,12 +21,12 @@ const useStyles = makeStyles((theme) => ({
   },
   header: {
     borderRadius: "10px 10px 0px 0px",
-    background : "#565656"
+    background: "#565656"
   },
 }));
 
-function createData(val1, val2, val3, val4 , val5 , val6 , val7 , val8 ) {
-  return {val1, val2, val3, val4 , val5 , val6 , val7 , val8 };
+function createData(val1, val2, val3, val4, val5, val6, val7, val8) {
+  return { val1, val2, val3, val4, val5, val6, val7, val8 };
 }
 
 export default function App() {
@@ -39,16 +39,18 @@ export default function App() {
 
   useEffect(() => {
     const getRange = async () => {
-        const res = await axios.get("/limits");
-        setRangeFilter(res.data);
+      const res = await axios.get("/limits");
+      setRangeFilter(res.data);
     }
     getRange();
 
   }, [])
 
 
+
+
   const handleTabChange = (event, newValue) => {
-    setTableVisible(false);
+    // setTableVisible(false);
     setTapValue(newValue);
   };
 
@@ -71,12 +73,12 @@ export default function App() {
       if (tableVisible === false) setTableVisible(true);
     }
     catch (e) {
-      // const fakeres = {"results":[0.4,4.4,6.9,9.8,12,13,14.9,99]}
+      // const fakeres = { "results": [0.4, 4.4, 6.9, 9.8, 12, 13, 14.9, 14.9] }
       // rows.splice(0);
       // rows.push(createData(...fakeres.results));
       // setRows(rows);
       setLoading(false);
-      // if (tableVisible === false) setTableVisible(true);
+      if (tableVisible === false) setTableVisible(true);
       // console.log(e);
     }
   }
@@ -84,13 +86,13 @@ export default function App() {
   return (
     <>
       <Header title={
-      <>PLAN-B
-      <div className = "subtitle">
-        The <span className = 'subtitle-PLANB P'>P</span>rediction of 
-        <span className = 'subtitle-PLANB L'>L</span>iver cancer using
-         <span className = 'subtitle-PLANB A'>A</span>rtificial intelligence-driven model for 
-        <span className = 'subtitle-PLANB N'>N</span>etwork - hepatitis 
-        <span className = 'subtitle-PLANB B'>B</span></div></>}></Header>
+        <><span className = "maintitle">PLAN-B</span>
+      <div className="subtitle">
+            The <span className='subtitle-PLANB P'>P</span>rediction of&nbsp;
+        <span className='subtitle-PLANB L'>L</span>iver cancer using
+         <span className='subtitle-PLANB A'>A</span>rtificial intelligence-driven model for&nbsp;
+        <span className='subtitle-PLANB N'>N</span>etwork - hepatitis&nbsp;
+        <span className='subtitle-PLANB B'>B</span></div></>}></Header>
       <div className="App">
         <div className="tab-rapper">
           <div className={classes.root}>
@@ -102,11 +104,19 @@ export default function App() {
                 aria-label="nav tabs example"
               >
                 <LinkTab label="Data from baseline (antivirals initiation)" href="/antiviralsinitiation" {...a11yProps(0)} />
-                <LinkTab label="Data from baseline and HBV DNA suppression (<2,000IU/ml)" href="/HBVDNAsuppression" {...a11yProps(1)} />
+                {/* <LinkTab label="Data from baseline and HBV DNA suppression (<2,000IU/ml)" href="/HBVDNAsuppression" {...a11yProps(1)} /> */}
               </Tabs>
             </AppBar>
 
-            <TabPanel rangeFilter={rangeFilter} result={result} loading={loading} onSend={handleSend} value={tabValue} index={0}>
+            <TabPanel
+              resetResult={() => { result = {} }}
+              setTableVisible={setTableVisible}
+              rangeFilter={rangeFilter}
+              result={result}
+              loading={loading}
+              onSend={handleSend}
+              value={tabValue}
+              index={0}>
             </TabPanel>
           </div>
         </div>
