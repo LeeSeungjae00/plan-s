@@ -10,7 +10,7 @@ import axios from 'axios';
 import Header from './Content/Header/Header'
 
 
-let result = {};
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,6 +30,7 @@ function createData(val1, val2, val3, val4, val5, val6, val7, val8) {
 }
 
 export default function App() {
+  const [result, setResult] = useState({});
   const classes = useStyles();
   const [tabValue, setTapValue] = useState(0);
   const [tableVisible, setTableVisible] = useState(false);
@@ -77,9 +78,9 @@ export default function App() {
       // rows.splice(0);
       // rows.push(createData(...fakeres.results));
       // setRows(rows);
+      // if (tableVisible === false) setTableVisible(true);
       setLoading(false);
-      if (tableVisible === false) setTableVisible(true);
-      // console.log(e);
+      console.log(e);
     }
   }
 
@@ -109,7 +110,7 @@ export default function App() {
             </AppBar>
 
             <TabPanel
-              resetResult={() => { result = {} }}
+              setResult ={setResult}
               setTableVisible={setTableVisible}
               rangeFilter={rangeFilter}
               result={result}

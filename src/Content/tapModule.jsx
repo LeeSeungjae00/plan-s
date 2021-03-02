@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 export function TabPanel(props) {
     const classes = useStyles();
     const formRef = React.useRef();
-    const { onSend, loading, rangeFilter, result , setTableVisible, resetResult} = props;
+    const { onSend, loading, rangeFilter, result , setTableVisible, setResult} = props;
     const [sex, setSex] = useState('');
     const [race, setRace] = useState('');
     const [antivirals, setAntivirals] = useState('');
@@ -64,7 +64,7 @@ export function TabPanel(props) {
                     max={rangeFilter?.age?.max}
                     lable="Age"
                     adornment="Years"
-                    setInputVal={age => result.age = age}
+                    setInputVal={age => setResult({...result, age})}
                 ></InputComponent>
                 <RadioComponent
                     val = {sex}
@@ -74,7 +74,7 @@ export function TabPanel(props) {
                     value2={"false"}
                     lable1="male"
                     lable2="female"
-                    setRadioVal={male => result.male = male}
+                    setRadioVal={male => setResult({...result, male})}
                 ></RadioComponent>
                 <InputComponent
                     type="number"
@@ -82,7 +82,7 @@ export function TabPanel(props) {
                     min={rangeFilter?.platelet?.min}
                     max={rangeFilter?.platelet?.max}
                     adornment={<>x1000mm<sup className="mutip">3</sup></>}
-                    setInputVal={platelet => result.platelet = platelet}
+                    setInputVal={platelet => setResult({...result, platelet})}
                 ></InputComponent>
                 <RadioComponent
                     val = {race}
@@ -92,7 +92,7 @@ export function TabPanel(props) {
                     value2={"Caucasian"}
                     lable1="Asian"
                     lable2="Caucasian"
-                    setRadioVal={race => result.race = race}
+                    setRadioVal={race => setResult({...result, race})}
                 ></RadioComponent>
                 <InputComponent
                     type="number"
@@ -100,7 +100,7 @@ export function TabPanel(props) {
                     min={rangeFilter?.albumin?.min}
                     max={rangeFilter?.albumin?.max}
                     adornment="g/dL"
-                    setInputVal={albumin => result.albumin = albumin}
+                    setInputVal={albumin => setResult({...result, albumin})}
                 ></InputComponent>
                 <RadioComponent
                     val = {antivirals}
@@ -110,7 +110,7 @@ export function TabPanel(props) {
                     value2={"tenofovir"}
                     lable1="entecavir"
                     lable2="tenofovir"
-                    setRadioVal={antivirals => result.antivirals = antivirals}
+                    setRadioVal={antivirals => setResult({...result, antivirals})}
                 ></RadioComponent>
                 <InputComponent
                     // val = {totalBilirubin}
@@ -120,7 +120,7 @@ export function TabPanel(props) {
                     min={rangeFilter?.total_bilirubin?.min}
                     max={rangeFilter?.total_bilirubin?.max}
                     adornment="mg/dL"
-                    setInputVal={total_bilirubin => result.total_bilirubin = total_bilirubin}
+                    setInputVal={total_bilirubin => setResult({...result, total_bilirubin})}
                 ></InputComponent>
                 <RadioComponent
                     val = {cirrhosis}
@@ -130,7 +130,7 @@ export function TabPanel(props) {
                     value2={"false"}
                     lable1="yes"
                     lable2="no"
-                    setRadioVal={cirrhosis => result.cirrhosis = cirrhosis}
+                    setRadioVal={cirrhosis =>  setResult({...result, cirrhosis})}
                 ></RadioComponent>
                 <InputComponent
                     // val = {alt}
@@ -140,7 +140,7 @@ export function TabPanel(props) {
                     min={rangeFilter?.ALT?.min}
                     max={rangeFilter?.ALT?.max}
                     adornment="U/L"
-                    setInputVal={ALT => result.ALT = ALT}
+                    setInputVal={ALT => setResult({...result, ALT})}
                 ></InputComponent>
                 <RadioComponent
                     val = {hebeag}
@@ -150,7 +150,7 @@ export function TabPanel(props) {
                     value2={"false"}
                     lable1="yes"
                     lable2="no"
-                    setRadioVal={presence_of_HBeAg => result.presence_of_HBeAg = presence_of_HBeAg}
+                    setRadioVal={presence_of_HBeAg => setResult({...result, presence_of_HBeAg})}
                 ></RadioComponent>
                 <InputComponent
                     // val = {hbv_dna}
@@ -160,7 +160,7 @@ export function TabPanel(props) {
                     min={rangeFilter?.HBV_DNA?.min}
                     max={rangeFilter?.HBV_DNA?.max}
                     adornment="IU/mL"
-                    setInputVal={HBV_DNA => result.HBV_DNA = HBV_DNA}
+                    setInputVal={HBV_DNA =>  setResult({...result, HBV_DNA})}
                 ></InputComponent>
 
             </form>
@@ -189,7 +189,7 @@ export function TabPanel(props) {
                         setHebeag('');
                         setTableVisible(false);
                         formRef.current.reset();
-                        resetResult();
+                        setResult({});
                     }}
                     disabled={loading}
                     style = {{marginRight : 10}}

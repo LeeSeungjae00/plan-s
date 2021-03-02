@@ -50,7 +50,7 @@ const madeAPIData = (tabValue, result) => {
             if ([...DNA_suppressionInput, ...baselineInput].indexOf(arr) !== -1) {
                 result[arr] = null;
             } else {
-                alert(`Please enter a more value`);
+                alert(`Please enter more value`);
                 return 0;
             }
         } else if (result[arr] === "RangeOut") {
@@ -62,12 +62,12 @@ const madeAPIData = (tabValue, result) => {
 
     if (tabValue === 0) {
         if (nullCount > 2) {
-            alert(`Please enter a more value`);
+            alert(`Please enter more value`);
             return 0;
         }
     } else {
         if (nullCount > 4) {
-            alert(`Please enter a more value`);
+            alert(`Please enter more value`);
             return 0;
         }
     }
