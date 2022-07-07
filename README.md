@@ -11,7 +11,7 @@
 값을 입력하고 submit 후엔 result로 chart 를 출력한다.
 
 # Stack
-React.js, css, chrat.js
+React.js, css, chart.js
 
 
 # Overview 
