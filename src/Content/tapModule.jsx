@@ -58,14 +58,6 @@ export function TabPanel(props) {
                 id={`nav-tabpanel-1`}
                 aria-labelledby={`nav-tab-1`}
             >
-                <InputComponent
-                    type="number"
-                    min={rangeFilter?.age?.min}
-                    max={rangeFilter?.age?.max}
-                    lable="Age"
-                    adornment="Years"
-                    setInputVal={age => setResult({...result, age})}
-                ></InputComponent>
                 <RadioComponent
                     val = {sex}
                     setVal = {setSex}
@@ -83,24 +75,6 @@ export function TabPanel(props) {
                     max={rangeFilter?.platelet?.max}
                     adornment={<>x1000mm<sup className="mutip">3</sup></>}
                     setInputVal={platelet => setResult({...result, platelet})}
-                ></InputComponent>
-                <RadioComponent
-                    val = {race}
-                    setVal = {setRace}
-                    title="Race"
-                    value1={"Asian"}
-                    value2={"Caucasian"}
-                    lable1="Asian"
-                    lable2="Caucasian"
-                    setRadioVal={race => setResult({...result, race})}
-                ></RadioComponent>
-                <InputComponent
-                    type="number"
-                    lable="Albumin, baseline"
-                    min={rangeFilter?.albumin?.min}
-                    max={rangeFilter?.albumin?.max}
-                    adornment="g/dL"
-                    setInputVal={albumin => setResult({...result, albumin})}
                 ></InputComponent>
                 <RadioComponent
                     val = {antivirals}
