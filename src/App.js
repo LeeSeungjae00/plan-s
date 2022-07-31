@@ -74,11 +74,6 @@ export default function App() {
       if (tableVisible === false) setTableVisible(true);
     }
     catch (e) {
-      // const fakeres = { "results": [0.4, 4.4, 6.9, 9.8, 12, 13, 14.9, 14.9] }
-      // rows.splice(0);
-      // rows.push(createData(...fakeres.results));
-      // setRows(rows);
-      // if (tableVisible === false) setTableVisible(true);
       setLoading(false);
       console.log(e);
     }
@@ -87,13 +82,13 @@ export default function App() {
   return (
     <>
       <Header title={
-        <><span className = "maintitle">PLAN-B</span>
+        <><span className = "maintitle">PLAN-S</span>
       <div className="subtitle">
             The <span className='subtitle-PLANB P'>P</span>rediction of&nbsp;
         <span className='subtitle-PLANB L'>L</span>iver cancer using
          <span className='subtitle-PLANB A'>A</span>rtificial intelligence-driven model for&nbsp;
-        <span className='subtitle-PLANB N'>N</span>etwork - hepatitis&nbsp;
-        <span className='subtitle-PLANB B'>B</span></div></>}></Header>
+        <span className='subtitle-PLANB N'>N</span>etwork – antiviral&nbsp;
+        <span className='subtitle-PLANB B'>S</span>election</div></>}></Header>
       <div className="App">
         <div className="tab-rapper">
           <div className={classes.root}>
