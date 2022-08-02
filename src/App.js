@@ -58,11 +58,14 @@ export default function App() {
 
   const handleSend = async () => {
     try {
-      console.log(result)
-      const restAPIData = madeAPIData(tabValue, result);
+      const dataCheck = madeAPIData(tabValue, result);
+      console.log(dataCheck)
+      if(dataCheck){
+        alert(`Please enter a ${dataCheck} value`)
+        return
+      }
       setLoading(true);
-      if (restAPIData === 0) { setLoading(false); return; }
-      const res = await axios.post("/data", restAPIData);
+      const res = await axios.post("/data", result);
       console.log(res);
       rows.splice(0);
 
