@@ -35,6 +35,7 @@ export default function App() {
   const [tabValue, setTapValue] = useState(0);
   const [tableVisible, setTableVisible] = useState(false);
   const [rows, setRows] = useState([]);
+  const [pill, setPill] = useState("");
   const [loading, setLoading] = useState(false);
   const [rangeFilter, setRangeFilter] = useState({});
 
@@ -70,6 +71,7 @@ export default function App() {
       rows.splice(0);
 
       rows.push(createData(...res.data.results));
+      setPill(res.data.pill)
 
       setRows(rows);
       setLoading(false);
@@ -125,7 +127,7 @@ export default function App() {
               <ArrowRight fontSize="large"></ArrowRight>
             </Grow>
             <Grow timeout={1500} in={tableVisible}>
-              <div><ResultTable loading={loading} rows={rows}></ResultTable></div>
+              <div><ResultTable pill = {pill} loading={loading} rows={rows}></ResultTable></div>
             </Grow>
           </>
         }
