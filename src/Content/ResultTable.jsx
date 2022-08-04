@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 defaults.global.defaultFontSize = 17
-export default function ResultTable({ rows, loading }) {
+export default function ResultTable({ rows, loading, pill }) {
     const classes = useStyles();
 
     
@@ -134,6 +134,13 @@ export default function ResultTable({ rows, loading }) {
                                 <TableCell colSpan={9}>
                                     <div style={{ width: '100%', height: 300 }}>
                                         <Bar width={400} height={200} data={data} options={options} />
+                                    </div>
+                                </TableCell>
+                                </TableRow>
+                                <TableRow>
+                                <TableCell colSpan={9}>
+                                    <div style={{ width: '100%', height: 300 }}>
+                                      {pill}
                                     </div>
                                 </TableCell>
                                 </TableRow>
