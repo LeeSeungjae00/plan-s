@@ -139,8 +139,8 @@ export default function ResultTable({ rows, loading, pill }) {
                                 </TableRow>
                                 <TableRow>
                                 <TableCell colSpan={9}>
-                                    <div style={{ width: '100%', height: 300 }}>
-                                      {pill}
+                                    <div style={{ width: '100%', display : "flex"}}>
+                                    <img src="https://img.icons8.com/3d-fluency/20/000000/3d-fluency-pill.png"/> Antiviral Recommentation:{pill}
                                     </div>
                                 </TableCell>
                                 </TableRow>
@@ -154,3 +154,5 @@ export default function ResultTable({ rows, loading, pill }) {
         </div>
     )
 }
+
+

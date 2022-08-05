@@ -5,8 +5,8 @@ const APITITLE = [
     "HBV_DNA",
     "male",
     "antivirals",
-    "cirrhosis_dna",
-    "presence_of_HBeAg_dna"
+    "cirrhosis",
+    "presence_of_HBeAg"
 ]
 
 const titleMap = {
@@ -16,8 +16,8 @@ const titleMap = {
     HBV_DNA : "HBV DNA, baseline",
     male : "Sex",
     antivirals : "Antivirals agent",
-    cirrhosis_dna : "Cirrhosis, baseline",
-    presence_of_HBeAg_dna : "Presence of HBeAg, baseline"
+    cirrhosis : "Cirrhosis, baseline",
+    presence_of_HBeAg : "Presence of HBeAg, baseline"
 }
 
 function toUnicodeVariant(str, variant, flags) {
@@ -136,6 +136,7 @@ function toUnicodeVariant(str, variant, flags) {
 }
 
 const madeAPIData = (tabValue, result) => {
+    console.log(result)
     for(let i = 0 ; i < APITITLE.length; i++){
         if(!result[APITITLE[i]]) return toUnicodeVariant(titleMap[APITITLE[i]], 'bold sans', 'bold')
     }
