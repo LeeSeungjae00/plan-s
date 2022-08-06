@@ -135,11 +135,16 @@ function toUnicodeVariant(str, variant, flags) {
     return result
 }
 
-const madeAPIData = (tabValue, result) => {
+const madeAPIData = (result, range) => {
     console.log(result)
+
     for(let i = 0 ; i < APITITLE.length; i++){
-        if(!result[APITITLE[i]]) return toUnicodeVariant(titleMap[APITITLE[i]], 'bold sans', 'bold')
+        if(result[APITITLE[i]] === undefined) 
+            return `Please enter a ${toUnicodeVariant(titleMap[APITITLE[i]], 'bold sans', 'bold')} value`
+        if(result[APITITLE[i]] === "RangeOut")
+            return `Enter according to ${toUnicodeVariant(titleMap[APITITLE[i]], 'bold sans', 'bold')} range` 
     }
+
     return false;
 }
 
