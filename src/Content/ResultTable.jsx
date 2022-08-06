@@ -7,15 +7,15 @@ import { defaults , Bar } from 'react-chartjs-2';
 
 const useStyles = makeStyles((theme) => ({
     table: {
-        minWidth: 934,
+        width: 700,
     },
     Progress: {
         color: "blue",
         alignSelf: "center",
     },
     tbCell : {
-        padding : 13,
-        fontSize : '1rem'
+        padding : "10px 0px",
+        fontSize : '0.87rem'
     }
 }));
 
@@ -97,10 +97,10 @@ export default function ResultTable({ rows, loading, pill }) {
     return (
         <div className="result-rapper">
             <TableContainer component={Paper}>
-                <Table className={classes.table} aria-label="simple table">
+                <Table className={classes.table} aria-label="simple table" size = "small">
                     {loading ?
                         <div className="tableLoding-rappeer" style={{
-                            height: 433
+                            height: 458
                         }}>
                             <CircularProgress className={classes.Progress} size={50}></CircularProgress>
                         </div> :
