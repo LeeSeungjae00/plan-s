@@ -7,7 +7,7 @@ import { defaults , Bar } from 'react-chartjs-2';
 
 const useStyles = makeStyles((theme) => ({
     table: {
-        minWidth: 599,
+        minWidth: 934,
     },
     Progress: {
         color: "blue",
@@ -37,11 +37,13 @@ export default function ResultTable({ rows, loading, pill }) {
                     max: Math.max(
                         rows[0].val1, rows[0].val2, rows[0].val3,
                         rows[0].val4, rows[0].val5, rows[0].val6,
-                        rows[0].val7, rows[0].val8
+                        rows[0].val7, rows[0].val8, rows[0].val9,
+                        rows[0].val10
                     ) > 90 ? 100 : Math.max(
                         rows[0].val1, rows[0].val2, rows[0].val3,
                         rows[0].val4, rows[0].val5, rows[0].val6,
-                        rows[0].val7, rows[0].val8
+                        rows[0].val7, rows[0].val8, rows[0].val9,
+                        rows[0].val10
                     )+5,
                     stepSize : 1
                 }
@@ -53,7 +55,7 @@ export default function ResultTable({ rows, loading, pill }) {
     
 
     const data = {
-        labels: ['1yr', '2yr', '3yr' , '4yr', '5yr' ,'6yr','7yr','8yr'],
+        labels: ['1yr', '2yr', '3yr' , '4yr', '5yr' ,'6yr','7yr','8yr','9yr','10yr'],
         legend: {
             display: false, // label 숨기기
         },
@@ -70,7 +72,8 @@ export default function ResultTable({ rows, loading, pill }) {
                 data: [
                     rows[0].val1, rows[0].val2, rows[0].val3,
                     rows[0].val4, rows[0].val5, rows[0].val6,
-                    rows[0].val7, rows[0].val8
+                    rows[0].val7, rows[0].val8, rows[0].val9,
+                    rows[0].val10
                 ],
             },
             {
@@ -81,10 +84,11 @@ export default function ResultTable({ rows, loading, pill }) {
                 data: [
                     rows[0].val1, rows[0].val2, rows[0].val3,
                     rows[0].val4, rows[0].val5, rows[0].val6,
-                    rows[0].val7, rows[0].val8
+                    rows[0].val7, rows[0].val8, rows[0].val9,
+                    rows[0].val10
                 ],
                 borderColor: 'white',
-                borderWidth: 2,
+                borderWidth: 1,
             },
         ],
     }
@@ -112,6 +116,8 @@ export default function ResultTable({ rows, loading, pill }) {
                                     <TableCell className = {classes.tbCell} align="right">6</TableCell>
                                     <TableCell className = {classes.tbCell} align="right">7</TableCell>
                                     <TableCell className = {classes.tbCell} align="right">8</TableCell>
+                                    <TableCell className = {classes.tbCell} align="right">9</TableCell>
+                                    <TableCell className = {classes.tbCell} align="right">10</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -127,11 +133,13 @@ export default function ResultTable({ rows, loading, pill }) {
                                             <TableCell className = {classes.tbCell} align="right">{row.val6 + "%"}</TableCell>
                                             <TableCell className = {classes.tbCell} align="right">{row.val7 + "%"}</TableCell>
                                             <TableCell className = {classes.tbCell} align="right">{row.val8 + "%"}</TableCell>
+                                            <TableCell className = {classes.tbCell} align="right">{row.val9 + "%"}</TableCell>
+                                            <TableCell className = {classes.tbCell} align="right">{row.val10 + "%"}</TableCell>
                                         </TableRow>
                                     ))
                                 }
                                 <TableRow>
-                                <TableCell colSpan={9}>
+                                <TableCell colSpan={11}>
                                     <div style={{ width: '100%', height: 300 }}>
                                         <Bar width={400} height={200} data={data} options={options} />
                                     </div>
@@ -140,7 +148,7 @@ export default function ResultTable({ rows, loading, pill }) {
                                 <TableRow>
                                 <TableCell colSpan={9}>
                                     <div style={{ width: '100%', display : "flex"}}>
-                                    <img src="https://img.icons8.com/3d-fluency/20/000000/3d-fluency-pill.png"/> Antiviral Recommentation:{pill}
+                                    <img src="https://img.icons8.com/3d-fluency/20/000000/3d-fluency-pill.png"/> Antiviral Recommendation:{pill}
                                     </div>
                                 </TableCell>
                                 </TableRow>

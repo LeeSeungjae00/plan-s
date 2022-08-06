@@ -25,8 +25,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function createData(val1, val2, val3, val4, val5, val6, val7, val8) {
-  return { val1, val2, val3, val4, val5, val6, val7, val8 };
+function createData(val1, val2, val3, val4, val5, val6, val7, val8, val9, val10) {
+  return { val1, val2, val3, val4, val5, val6, val7, val8 ,val9, val10};
 }
 
 export default function App() {
@@ -59,10 +59,10 @@ export default function App() {
 
   const handleSend = async () => {
     try {
-      const dataCheck = madeAPIData(tabValue, result);
+      const dataCheck = madeAPIData(result,rangeFilter);
       console.log(dataCheck)
       if(dataCheck){
-        alert(`Please enter a ${dataCheck} value`)
+        alert(dataCheck)
         return
       }
       setLoading(true);
@@ -71,7 +71,7 @@ export default function App() {
       rows.splice(0);
 
       rows.push(createData(...res.data.results));
-      setPill(res.data.pill)
+      setPill(res.data.antiviral)
 
       setRows(rows);
       setLoading(false);
