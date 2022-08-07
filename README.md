@@ -1,4 +1,4 @@
 # URL
-[PLAN-S](https://planbhcc.com/)
+[PLAN-S](https://planshcc.com/)
 
 # Description

@@ -148,7 +148,7 @@ export default function ResultTable({ rows, loading, pill }) {
                                 <TableRow>
                                 <TableCell colSpan={9}>
                                     <div style={{ width: '100%', display : "flex"}}>
-                                    <img src="https://img.icons8.com/3d-fluency/20/000000/3d-fluency-pill.png"/> Antiviral Recommendation:{pill}
+                                    <img src="https://img.icons8.com/3d-fluency/20/000000/3d-fluency-pill.png"/> Antiviral Recommendation : <b>&nbsp; {pill}</b>
                                     </div>
                                 </TableCell>
                                 </TableRow>
