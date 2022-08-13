@@ -35,7 +35,9 @@ export default function App() {
   const [tabValue, setTapValue] = useState(0);
   const [tableVisible, setTableVisible] = useState(false);
   const [rows, setRows] = useState([]);
+  const [rows2, setRows2] = useState([]);
   const [pill, setPill] = useState("");
+  const [subgroup, setSubgroup] = useState("");
   const [loading, setLoading] = useState(false);
   const [rangeFilter, setRangeFilter] = useState({});
 
@@ -69,11 +71,13 @@ export default function App() {
       const res = await axios.post("/data", result);
       console.log(res);
       rows.splice(0);
-
-      rows.push(createData(...res.data.results));
-      setPill(res.data.antiviral)
-
+      rows2.splice(0);
+      rows.push(createData(...res.data.TDF_result));
+      rows2.push(createData(...res.data.ETV_result));
+      setSubgroup(res.data.subgroup)
       setRows(rows);
+      setRows2(rows2);
+      setPill(res.data.antiviral)
       setLoading(false);
 
       if (tableVisible === false) setTableVisible(true);
@@ -127,7 +131,12 @@ export default function App() {
               <ArrowRight fontSize="large"></ArrowRight>
             </Grow>
             <Grow timeout={1500} in={tableVisible}>
-              <div><ResultTable pill = {pill} loading={loading} rows={rows}></ResultTable></div>
+              <div><ResultTable 
+                pill = {pill} 
+                subgroub = {subgroup} 
+                rows2 = {rows2} 
+                loading={loading} 
+                rows={rows}></ResultTable></div>
             </Grow>
           </>
         }

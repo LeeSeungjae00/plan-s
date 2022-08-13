@@ -11,6 +11,21 @@
   gap : 10px;
 }
 
+.graphTitle{
+  margin: 0;
+  margin-top: 5px;
+  font-size: 18px;
+}
+
+.nMargin{
+  margin: 0;
+  margin-top: 5px;
+}
+
+.resultLine{
+  margin: 3px;
+}
+
 .tab-rapper{
   width: fit-content;
   height: fit-content;
