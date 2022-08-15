@@ -4,7 +4,6 @@ const APITITLE = [
     "ALT",
     "HBV_DNA",
     "male",
-    "antivirals",
     "cirrhosis",
     "presence_of_HBeAg"
 ]
@@ -15,7 +14,6 @@ const titleMap = {
     ALT : "ALT, baseline",
     HBV_DNA : "HBV DNA, baseline",
     male : "Sex",
-    antivirals : "Antivirals agent",
     cirrhosis : "Cirrhosis, baseline",
     presence_of_HBeAg : "Presence of HBeAg, baseline"
 }

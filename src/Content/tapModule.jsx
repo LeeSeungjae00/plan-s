@@ -43,8 +43,6 @@ export function TabPanel(props) {
     const formRef = React.useRef();
     const { onSend, loading, rangeFilter, result, setTableVisible, setResult } = props;
     const [sex, setSex] = useState('');
-    const [race, setRace] = useState('');
-    const [antivirals, setAntivirals] = useState('');
     const [cirrhosis, setCirrhosis] = useState('');
     const [hebeag, setHebeag] = useState('');
 
@@ -87,14 +85,14 @@ export function TabPanel(props) {
                     setInputVal={total_bilirubin => setResult({ ...result, total_bilirubin })}
                 ></InputComponent>
                 <RadioComponent
-                    val={antivirals}
-                    setVal={setAntivirals}
-                    title="Antivirals agent"
-                    value1={"Entecavir"}
-                    value2={"Tenofovir DF"}
-                    lable1="Entecavir"
-                    lable2="Tenofovir DF"
-                    setRadioVal={antivirals => setResult({ ...result, antivirals })}
+                    val={cirrhosis}
+                    setVal={setCirrhosis}
+                    title="Cirrhosis, baseline"
+                    value1={"true"}
+                    value2={"false"}
+                    lable1="yes"
+                    lable2="no"
+                    setRadioVal={cirrhosis => setResult({ ...result, cirrhosis })}
                 ></RadioComponent>
                 <InputComponent
                     // val = {alt}
@@ -107,14 +105,14 @@ export function TabPanel(props) {
                     setInputVal={ALT => setResult({ ...result, ALT })}
                 ></InputComponent>
                 <RadioComponent
-                    val={cirrhosis}
-                    setVal={setCirrhosis}
-                    title="Cirrhosis, baseline"
+                    val={hebeag}
+                    setVal={setHebeag}
+                    title="Presence of HBeAg, baseline"
                     value1={"true"}
                     value2={"false"}
                     lable1="yes"
                     lable2="no"
-                    setRadioVal={cirrhosis => setResult({ ...result, cirrhosis })}
+                    setRadioVal={presence_of_HBeAg => setResult({ ...result, presence_of_HBeAg })}
                 ></RadioComponent>
                 <InputComponent
                     // val = {hbv_dna}
@@ -127,16 +125,7 @@ export function TabPanel(props) {
                     setInputVal={HBV_DNA => setResult({ ...result, HBV_DNA })}
                 ></InputComponent>
 
-                <RadioComponent
-                    val={hebeag}
-                    setVal={setHebeag}
-                    title="Presence of HBeAg, baseline"
-                    value1={"true"}
-                    value2={"false"}
-                    lable1="yes"
-                    lable2="no"
-                    setRadioVal={presence_of_HBeAg => setResult({ ...result, presence_of_HBeAg })}
-                ></RadioComponent>
+                
 
             </form>
             <div>
@@ -157,9 +146,6 @@ export function TabPanel(props) {
                     color="primary"
                     className={classes.sendButton}
                     onClick={() => {
-                        setSex('');
-                        setRace('');
-                        setAntivirals('');
                         setCirrhosis('');
                         setHebeag('');
                         setTableVisible(false);
