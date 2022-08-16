@@ -279,7 +279,7 @@ export default function ResultTable({ rows, loading, pill, rows2, subgroub }) {
                 <Table className={classes.table} aria-label="simple table" size="small">
                     {loading ?
                         <div className="tableLoding-rappeer" style={{
-                            height: 250
+                            height: 66
                         }}>
                             <CircularProgress className={classes.Progress} size={50}></CircularProgress>
                         </div> :
@@ -288,15 +288,15 @@ export default function ResultTable({ rows, loading, pill, rows2, subgroub }) {
 
                                 <TableRow>
                                     <TableCell>
-                                        <div style={{ width: '100%', display: "flex" }}>
-                                        <img src="https://img.icons8.com/external-others-pike-picture/20/000000/external-classification-machine-learning-ai-others-pike-picture.png"/> Subgroup Classification : <b>&nbsp; {subgroub}</b>
+                                        <div style={{ width: '100%', display: "flex", fontSize : "16px" }}>
+                                        <img src="/subgroup.png" alt = "subgroup"/> Subgroup Classification : <b>&nbsp; {subgroub}</b>
                                         </div>
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>
-                                        <div style={{ width: '100%', display: "flex" }}>
-                                            <img src="https://img.icons8.com/3d-fluency/20/000000/3d-fluency-pill.png" /> Antiviral Recommendation : <b>&nbsp; {pill}</b>
+                                        <div style={{ width: '100%', display: "flex", fontSize : "16px" }}>
+                                            <img src="/pill.png" alt = "pill"/> Antiviral Recommendation : <b>&nbsp; {pill}</b>
                                         </div>
                                     </TableCell>
                                 </TableRow>
