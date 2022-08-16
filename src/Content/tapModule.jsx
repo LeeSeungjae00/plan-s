@@ -146,6 +146,7 @@ export function TabPanel(props) {
                     color="primary"
                     className={classes.sendButton}
                     onClick={() => {
+                        setSex('')
                         setCirrhosis('');
                         setHebeag('');
                         setTableVisible(false);
